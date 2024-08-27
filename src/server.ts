@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerDocument from './swagger.json';
+import cors from 'cors';
 
 const app = express();
 
@@ -12,6 +13,8 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsdoc(options);
+
+app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
