@@ -3,6 +3,9 @@ import validateImageBase64 from '../middlewares/validateImageBase64';
 import validateCustomerCode from '../middlewares/validateCustomerCode';
 import validateMeasureType from '../middlewares/validateMeaureType';
 import validateMeasureDateTime from '../middlewares/validateMeasureDatetime';
+import MeasureController from '../controllerss/measureController';
+
+const measureController = new MeasureController()
 
 const measuresRouter = Router();
 
@@ -11,7 +14,7 @@ measuresRouter.route('/upload').post(
     validateCustomerCode,
     validateMeasureDateTime,
     validateMeasureType,
-    MeasureController.createMeasure
+    measureController.createMeasure
 )
 
 export default measuresRouter;
