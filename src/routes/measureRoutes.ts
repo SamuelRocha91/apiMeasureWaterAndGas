@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import validateImageBase64 from '../middlewares/validateImageBase64';
 
 const measuresRouter = Router();
 
