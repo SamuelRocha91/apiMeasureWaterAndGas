@@ -9,3 +9,20 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Measures {
+  measure_uuid     String   @id @default(uuid())
+  measure_type     String
+  measure_datetime DateTime
+  measure_value    Int
+  customer_code    String
+  customer         Customer @relation(fields: [customer_code], references: [id])
+}
+
+model Customers {
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  phoneNumber String?
+  measures    Measures[]
+}
