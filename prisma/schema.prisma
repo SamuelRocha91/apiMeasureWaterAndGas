@@ -13,7 +13,7 @@ datasource db {
 model Measure {
   measureUuid      String   @id @default(uuid())
   measureType      String
-  measuredDatetime DateTime
+  measureDatetime  DateTime
   measureValue     Int
   customerCode     String
   customer         Customer @relation(fields: [customerCode], references: [id])

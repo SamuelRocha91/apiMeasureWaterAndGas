@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import MeasureService from '../services/measureService';
 
 export default class MeasureController {
 
@@ -12,10 +13,10 @@ export default class MeasureController {
         const object = {
             image: data.image,
             customerCode: data.customer_code,
-            measureDatetime: data.measure_datetime,
+            measureDatetime: new Date(data.measure_datetime),
             measureType: data.measure_type
         }
-        const response = this.measureService.create(object);
+        const response = await this.measureService.createMeasure(object);
         if (response.status != 'SUCCESSFUL') {
             return res.status(409).json(
                 {

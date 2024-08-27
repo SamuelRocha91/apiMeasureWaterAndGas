@@ -1,6 +1,6 @@
 export interface IMeasure {
     image: string,
     customerCode: string,
-    measureDatetime: string,
+    measureDatetime: Date,
     measureType: "WEATHER" | "GAS"
 }
