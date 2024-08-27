@@ -5,6 +5,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerDocument from './swagger.json';
 import path from 'path';
 import cors from 'cors';
+import measuresRouter from './routes/measureRoutes';
 
 const app = express();
 
@@ -19,7 +20,10 @@ app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use('/upload', measuresRouter)
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 app.get('/', (_req: Request, res: Response) =>
     res.json({ message: 'active server' }),
