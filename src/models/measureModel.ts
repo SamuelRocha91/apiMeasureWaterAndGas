@@ -18,4 +18,12 @@ export default class MeasureModel {
        })
     }
 
+    async findAllByCode(code: string): Promise<IMeasure[]> {
+        return await this.prismaClient.measure.findMany({
+            where: {
+                customerCode: code
+            }
+        })
+    }
+
 }
