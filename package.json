@@ -27,6 +27,7 @@
     "globals": "^15.9.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
+    "prisma": "^5.19.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
