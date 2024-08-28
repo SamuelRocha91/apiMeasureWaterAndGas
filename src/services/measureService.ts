@@ -46,4 +46,16 @@ export default class MeasureService {
         await this.measureModel.confirmMeasure(object.measureUuid, object.measureValue)
         return { status: 'SUCCESSFUL', message: 'ok' };
     }
+
+    public async listMeasures(code: string, type: string) {
+        const allMeasures = await this.measureModel.findAllMeasures(code, type);
+
+        if (!allMeasures) {
+            return {
+                status: 'MEASURES_NOT_FOUND', message: "Nenhuma leitura encontrada"
+            }
+        }
+
+        return { status: 'SUCCESSFUL', message: allMeasures};
+    }
 }

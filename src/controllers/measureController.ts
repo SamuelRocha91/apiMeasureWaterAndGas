@@ -63,11 +63,21 @@ export default class MeasureController {
     public async listMeasures(req: Request, res: Response) {
         const { customerCode } = req.params;
         const { measure_type: measureType } = req.query;
+        let response;
+        if (measureType && typeof measureType === 'string') {
+            response = await this.measureService.listMeasures(customerCode, measureType);
+        } else {
+            response = await this.measureService.listMeasures(customerCode, '');
+        }
 
-
-        const response = await this.measureService.listMeasures(customerCode, measureType || '');
-        res.status(200).json({
-            response.message
-        });
+        if (response.status == 'MEASURES_NOT_FOUND') {
+          return res.status(409).json(
+            {
+                error_code: response.status,
+                error_description: response.message
+            });
+        }
+        
+        res.status(200).json(response.message);
     }
 }
