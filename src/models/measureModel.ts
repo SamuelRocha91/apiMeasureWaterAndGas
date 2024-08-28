@@ -49,4 +49,27 @@ export default class MeasureModel {
         })
     }
 
+    async findMeasureByUuid(uuid: string) {
+        return await this.prismaClient.measure.findFirst({
+            where: {
+                measureUuid: uuid
+            },
+            select: {
+                hasConfirmed: true
+            }
+        })
+    }
+
+    async confirmMeasure(uuid: string, value: number) {
+        return await this.prismaClient.measure.update({
+            where: {
+                measureUuid: uuid
+            },
+            data: {
+                measureValue: value,
+                hasConfirmed: true
+            }
+        })
+    }
+
 }

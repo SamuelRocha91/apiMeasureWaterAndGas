@@ -43,7 +43,7 @@ export default class MeasureService {
             }
         }
 
-        await this.measureModel.confirmMeasure(object)
+        await this.measureModel.confirmMeasure(object.measureUuid, object.measureValue)
         return { status: 'SUCCESSFUL', message: 'ok' };
     }
 }
