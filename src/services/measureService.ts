@@ -3,6 +3,7 @@ import { IMeasure } from "../interfaces/IMeasure";
 import { ServiceResponse } from "../interfaces/IServiceResponse";
 import MeasureModel from "../models/measureModel";
 import { extractMimeType, extractSize, saveBase64Image } from "../utils/image.utils";
+import checkMeasureValue from "../utils/gemini.utils";
 
 export default class MeasureService {
     constructor(
@@ -20,12 +21,13 @@ export default class MeasureService {
         const mime = extractMimeType(measure.image)
         const size = extractSize(measure.image)
         const path = await saveBase64Image(measure.image, measure.customerCode, measure.measureDatetime.toString(), measure.measureType)
+        const value = await checkMeasureValue(mime, measure.image.split(',')[1])
         const dataImage = {
             imagePath: path,
             mimeType: mime,
             size: size
         }
-        const newMeasure = await this.measureModel.create(measure, 1,dataImage)
+        const newMeasure = await this.measureModel.create(measure, value,dataImage)
         return { status: 'SUCCESSFUL', message: newMeasure };
     }
 }
