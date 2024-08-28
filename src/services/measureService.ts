@@ -20,7 +20,7 @@ export default class MeasureService {
         }
         const mime = extractMimeType(measure.image)
         const size = extractSize(measure.image)
-        const path = await saveBase64Image(measure.image, measure.customerCode, measure.measureDatetime.toString(), measure.measureType)
+        const path = await saveBase64Image(measure.image, measure.customerCode, measure.measureType)
         const value = await checkMeasureValue(mime, measure.image.split(',')[1])
         const dataImage = {
             imagePath: path,

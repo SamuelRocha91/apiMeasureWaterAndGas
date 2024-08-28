@@ -9,12 +9,12 @@ const measureController = new MeasureController()
 
 const measuresRouter = Router();
 
-measuresRouter.route('/upload').post(
+measuresRouter.route('/').post(
     validateImageBase64,
     validateCustomerCode,
     validateMeasureDateTime,
     validateMeasureType,
-    measureController.createMeasure
+    measureController.createMeasure.bind(measureController)
 )
 
 export default measuresRouter;

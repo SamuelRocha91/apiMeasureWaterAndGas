@@ -1,8 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
 
 function validateImageBase64(req: Request, res: Response, next: NextFunction): Response | void {
-        let { image } = req.body;
-
+        let figure; 
+        const { image } = req.body;
+        console.log('aqui02')
         if (!image) {
             return res.status(400).json(
                 {
@@ -20,11 +21,11 @@ function validateImageBase64(req: Request, res: Response, next: NextFunction): R
                         error_description: "Os dados fornecidos no corpo da requisição são inválidos"
                     });
             }
-              image = parts[1];
+              figure = parts[1];
         }
     
-        const isValid = /^[A-Za-z0-9+/]+={0,2}$/.test(image);
-        const isLengthValid = image.length % 4 === 0;
+        const isValid = /^[A-Za-z0-9+/]+={0,2}$/.test(figure);
+        const isLengthValid = figure.length % 4 === 0;
 
         if (!isValid || !isLengthValid) {
             return res.status(400).json(
