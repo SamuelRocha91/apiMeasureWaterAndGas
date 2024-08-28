@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import MeasureService from '../services/measureService';
+import { getImageUrl } from '../utils/image.utils';
 
 export default class MeasureController {
 
@@ -24,6 +25,11 @@ export default class MeasureController {
                     error_description: response.message
                  });
         }
-        res.status(201).json(response.message);
+        const imageUrl = getImageUrl(response.message.imageUrl as string)
+        res.status(201).json({
+            image_url: imageUrl,
+            measure_value: response.message.measureValue,
+            measure_uuid: response.message.measureUuid
+        });
     }
 }
