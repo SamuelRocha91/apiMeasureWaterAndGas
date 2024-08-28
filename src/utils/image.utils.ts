@@ -18,27 +18,26 @@ function extractSize(base64Image: string): number {
     return Buffer.byteLength(base64Data, 'base64');
 }
 
-async function saveBase64Image(base64Image: string, customer_code: string, date: string, type: string): Promise<string> {
+async function saveBase64Image(base64Image: string, customer_code: string, type: string): Promise<string> {
     const base64Data = base64Image.split(',')[1];
-    const image = extractMimeType(base64Image)
-    const buffer = Buffer.from(base64Data, 'base64');
-    const extension = image.split('/')[1];
-    const filename = `${customer_code}${type}${date.replace(/[:]/g, '-')}${extension}`
-    const filePath = path.join(__dirname, 'uploads', filename);
+    const imageMimeType = extractMimeType(base64Image);
+    const extension = imageMimeType.split('/')[1];
 
-    if (!fs.existsSync(path.join(__dirname, 'uploads'))) {
-        fs.mkdirSync(path.join(__dirname, 'uploads'));
+    const filename = `${customer_code}_${type}_${Date.now()}.${extension}`;
+    const filePath = path.join(__dirname, '../uploads', filename);
+
+    if (!fs.existsSync(path.join(__dirname, '../uploads'))) {
+        fs.mkdirSync(path.join(__dirname, '../uploads'));
     }
 
     return new Promise((resolve, reject) => {
-        fs.writeFile(filePath, buffer, (err) => {
+        fs.writeFile(filePath, Buffer.from(base64Data, 'base64'), (err) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(filePath);
+                resolve(filePath); 
             }
         });
     });
 }
-
 export { extractMimeType, getImageUrl, extractSize, saveBase64Image }
