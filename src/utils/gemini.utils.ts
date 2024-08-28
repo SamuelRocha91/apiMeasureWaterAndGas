@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const PROMPT = "What is the total amount to pay for the bill?";
+const PROMPT = "Please analyze the attached image of the meter reading for the current month and provide the total amount of consumption recorded by the meter.The meter is used for measuring[water / gas / other], and you should return the total reading as shown in the image.";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -10,9 +10,6 @@ const model = genAI.getGenerativeModel({
 });
 
 async function checkMeasureValue(mime: string, base64: string): Promise<number> {
-    console.log(PROMPT)
-    console.log(mime)
-    console.log(model)
     const result = await model.generateContent([
         {
             inlineData: {

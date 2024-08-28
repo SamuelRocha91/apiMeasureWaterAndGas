@@ -32,4 +32,31 @@ export default class MeasureController {
             measure_uuid: response.message.measureUuid
         });
     }
+
+    public async confirmMeasure(req: Request, res: Response) {
+        const data = req.body;
+        const object = {
+            measureUuid: data.measure_uuid,
+            measureValue: data.confirmed_value
+        }
+
+        const response = await this.measureService.confirmMeasure(object);
+
+        if (response.status == 'MEASURE_NOT_FOUND') {
+            return res.status(404).json(
+                {
+                    error_code: response.status,
+                    error_description: response.message
+                });
+        } else if (response.status == 'CONFIRMATION_DUPLICATE') {
+            return res.status(409).json(
+                {
+                    error_code: response.status,
+                    error_description: response.message
+                });
+        }
+        res.status(200).json({
+            success: true
+        });
+    }
 }

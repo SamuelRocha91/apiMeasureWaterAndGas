@@ -1,4 +1,4 @@
-import { ICreateMeasure, IMeasureDate } from "../interfaces/ICreateMeasure";
+import { ICreateMeasure, IMeasureDate, IMeasureSummary } from "../interfaces/ICreateMeasure";
 import { IMeasure } from "../interfaces/IMeasure";
 import { ServiceResponse } from "../interfaces/IServiceResponse";
 import MeasureModel from "../models/measureModel";
@@ -29,5 +29,21 @@ export default class MeasureService {
         }
         const newMeasure = await this.measureModel.create(measure, value,dataImage)
         return { status: 'SUCCESSFUL', message: newMeasure };
+    }
+
+    public async confirmMeasure(object: IMeasureSummary) {
+        const measureAllReadyExists = await this.measureModel.findMeasureByUuid(object.measureUuid);
+        if (!measureAllReadyExists) {
+            return {
+                status: 'MEASURE_NOT_FOUND', message: "Leitura não encontrada"
+            }
+        } else if (measureAllReadyExists.hasConfirmed) {
+            return {
+                status: 'CONFIRMATION_DUPLICATE', message: "Leitura do mês já realizada"
+            }
+        }
+
+        await this.measureModel.confirmMeasure(object.measureUuid, object.measureValue)
+        return { status: 'SUCCESSFUL', message: 'ok' };
     }
 }
