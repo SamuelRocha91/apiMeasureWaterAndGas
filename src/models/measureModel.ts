@@ -72,4 +72,24 @@ export default class MeasureModel {
         })
     }
 
+    async findAllMeasures(code: string, type: string) {
+        return await this.prismaClient.measure.findMany({
+            where: {
+                customerCode: code,
+                measureType: type === "" ? { not: "" } : type,
+            },
+            select: {
+                measureUuid: true,
+                measureDatetime: true,
+                measureType: true,
+                hasConfirmed: true,
+                image: {
+                    select: {
+                        imagePath: true
+                    }
+                }
+            }
+        })
+    }
+
 }
