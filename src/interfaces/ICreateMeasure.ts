@@ -4,6 +4,8 @@ export interface ICreateMeasure {
     measureUuid: string
 }
 
+export type IMeasureSummary = Pick<ICreateMeasure, 'measureValue' | 'measureUuid'>;
+
 export interface IMeasureDate {
     measureDatetime: Date
 }
