@@ -59,4 +59,15 @@ export default class MeasureController {
             success: true
         });
     }
+
+    public async listMeasures(req: Request, res: Response) {
+        const { customerCode } = req.params;
+        const { measure_type: measureType } = req.query;
+
+
+        const response = await this.measureService.listMeasures(customerCode, measureType || '');
+        res.status(200).json({
+            response.message
+        });
+    }
 }

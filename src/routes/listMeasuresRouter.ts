@@ -8,7 +8,7 @@ const listMeasuresRouter = Router();
 
 listMeasuresRouter.route('/list').get(
     validateGetAllMeasures,
-    measureController.listMeasure.bind(measureController)
+    measureController.listMeasures.bind(measureController)
 )
 
 export default listMeasuresRouter;
