@@ -34,7 +34,9 @@
     "typescript-eslint": "^8.3.0"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.17.1",
     "@prisma/client": "^5.19.0",
+    "arg": "^5.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

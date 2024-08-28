@@ -15,7 +15,7 @@ export default class MeasureService {
                 status: 'DOUBLE_REPORT', message: "Leitura do mês já realizada"
             }
         }
-        const newMeasure = this.measureModel.create(measure)
+        const newMeasure = this.measureModel.create(measure, 1, 0)
         return { status: 'SUCCESSFUL', message: newMeasure };
     }
 }
