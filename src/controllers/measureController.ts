@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import MeasureService from '../services/measureService';
 import { getImageUrl } from '../utils/image.utils';
+import {  IMeasureAll } from '../interfaces/IMeasure';
 
 export default class MeasureController {
 
@@ -77,7 +78,30 @@ export default class MeasureController {
                 error_description: response.message
             });
         }
+
+        const objectResponse: {
+            customer_code: string;
+            measure: IMeasureAll[];
+        } = {
+            customer_code: customerCode,
+            measure: []
+        }
+
+        if (Array.isArray(response.message)) {
+            response.message.forEach((item) => {
+                const newMeasure = {
+                    measure_uuid: item.measureUuid,
+                    measure_type: item.measureType,
+                    measure_datetime: item.measureDatetime,
+                    has_confirmed: item.hasConfirmed,
+                    image_url: getImageUrl(item.image?.imagePath || ''),
+                }
+                objectResponse.measure.push(newMeasure)
+            })
+            
+        }
         
-        res.status(200).json(response.message);
+        
+        res.status(200).json(objectResponse);
     }
 }
