@@ -32,4 +32,17 @@ export default class MeasureController {
             measure_uuid: response.message.measureUuid
         });
     }
+
+    public async confirmMeasure(req: Request, res: Response) {
+        const data = req.body;
+        const object = {
+            measureUuid: data.measure_uuid,
+            measureValue: data.confirmed_value
+        }
+
+        await this.measureService.confirmMeasure(object);
+        res.status(200).json({
+            success: true
+        });
+    }
 }
