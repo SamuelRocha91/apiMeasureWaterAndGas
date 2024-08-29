@@ -1,9 +1,9 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API Documentation",
+        "title": "Measure API",
         "version": "1.0.0",
-        "description": "Descrição da sua API"
+        "description": "API para gestão de medições de clientes."
     },
     "servers": [
         {
@@ -11,5 +11,250 @@
             "description": "Servidor local"
         }
     ],
-    "paths": {}
+    "paths": {
+        "/{customerCode}/list": {
+            "get": {
+                "summary": "Listar Medições",
+                "description": "Retorna uma lista de medições para um cliente específico.",
+                "parameters": [
+                    {
+                        "name": "customerCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "Código do cliente",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "measure_type",
+                        "in": "query",
+                        "required": false,
+                        "description": "Tipo de medição (WATER ou GAS)",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de medições retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "customer_code": {
+                                            "type": "string"
+                                        },
+                                        "measure": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "measure_uuid": {
+                                                        "type": "string"
+                                                    },
+                                                    "measure_type": {
+                                                        "type": "string"
+                                                    },
+                                                    "measure_datetime": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "has_confirmed": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "image_url": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Nenhuma medição encontrada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/confirm": {
+            "patch": {
+                "summary": "Confirmar Medição",
+                "description": "Confirma uma medição existente com um valor confirmado.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "measure_uuid": {
+                                        "type": "string"
+                                    },
+                                    "confirmed_value": {
+                                        "type": "number"
+                                    }
+                                },
+                                "required": [
+                                    "measure_uuid",
+                                    "confirmed_value"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Medição confirmada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Medição não encontrada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Confirmação duplicada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload": {
+            "post": {
+                "summary": "Criar Medição",
+                "description": "Cria uma nova medição para um cliente.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "customer_code": {
+                                        "type": "string"
+                                    },
+                                    "measure_datetime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "measure_type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "image",
+                                    "customer_code",
+                                    "measure_datetime",
+                                    "measure_type"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Medição criada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "image_url": {
+                                            "type": "string"
+                                        },
+                                        "measure_value": {
+                                            "type": "number"
+                                        },
+                                        "measure_uuid": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Erro ao criar medição.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
