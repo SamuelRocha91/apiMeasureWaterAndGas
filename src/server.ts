@@ -7,6 +7,7 @@ import cors from 'cors';
 import measuresRouter from './routes/measureRoutes';
 import confirmMeasuresRouter from './routes/confirmMeasureRoutes';
 import listMeasuresRouter from './routes/listMeasuresRouter';
+import ErrorHandler from './middlewares/errorHandler';
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.use('/confirm', confirmMeasuresRouter)
 app.use('/upload', measuresRouter)
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use(ErrorHandler);
 
 app.get('/', (_req: Request, res: Response) =>
   res.json({ message: 'active server' })
