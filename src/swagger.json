@@ -78,15 +78,15 @@
                     },
                     "400": {
                         "description": "Tipo de medição não permitida",
-                        "content":{
+                        "content": {
                             "application/json": {
                                 "schema": {
-                                    "type":"object",
-                                    "properties":{
+                                    "type": "object",
+                                    "properties": {
                                         "error_code": {
-                                            "type":"string"
+                                            "type": "string"
                                         },
-                                        "error_description":{
+                                        "error_description": {
                                             "type": "string"
                                         }
                                     }
