@@ -1,5 +1,5 @@
 import { ICreateImage } from '../interfaces/ICreateImage';
-import { ICreateMeasure, IMeasureDate } from '../interfaces/ICreateMeasure';
+import { IConfirmed, ICreateMeasure, IMeasureDate } from '../interfaces/ICreateMeasure';
 import { IMeasure } from '../interfaces/IMeasure';
 import { PrismaClient } from '@prisma/client';
 
@@ -49,7 +49,7 @@ export default class MeasureModel {
         })
     }
 
-    async findMeasureByUuid(uuid: string) {
+    async findMeasureByUuid(uuid: string): Promise<IConfirmed | null>   {
         return await this.prismaClient.measure.findFirst({
             where: {
                 measureUuid: uuid

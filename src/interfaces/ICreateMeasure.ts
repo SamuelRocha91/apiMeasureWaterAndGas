@@ -6,6 +6,10 @@ export interface ICreateMeasure {
 
 export type IMeasureSummary = Pick<ICreateMeasure, 'measureValue' | 'measureUuid'>;
 
+export interface IConfirmed {
+    hasConfirmed: boolean
+}
+
 export interface IMeasureDate {
     measureDatetime: Date
 }
