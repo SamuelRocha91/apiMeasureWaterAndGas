@@ -9,6 +9,8 @@ import { ServiceResponse } from "../interfaces/IServiceResponse";
 import MeasureModel from "../models/measureModel";
 import { extractMimeType, extractSize, saveBase64Image } from "../utils/image.utils";
 import checkMeasureValue from "../utils/gemini.utils";
+import DoubleReportException from "../exceptions/DoubleReportException";
+import NotFoundException from "../exceptions/NotFoundException";
 
 export default class MeasureService {
   constructor(
@@ -23,9 +25,9 @@ export default class MeasureService {
     if (allMeasure.some((measureMonth: IMeasureDate) =>
       measureMonth.measureDatetime.getFullYear() === measure.measureDatetime.getFullYear() &&
       measureMonth.measureDatetime.getMonth() === measure.measureDatetime.getMonth())) {
-      return {
-        status: 'DOUBLE_REPORT', message: "Leitura do mês já realizada"
-      }
+    
+      throw new DoubleReportException('DOUBLE_REPORT', "Leitura do mês já realizada")
+    
     }
     const mime = extractMimeType(measure.image)
     const size = extractSize(measure.image)
@@ -43,15 +45,10 @@ export default class MeasureService {
   public async confirmMeasure(object: IMeasureSummary): Promise<ServiceResponse<string>> {
     const measureAllReadyExists = await this.measureModel.findMeasureByUuid(object.measureUuid);
     if (!measureAllReadyExists) {
-      return {
-        status: 'MEASURE_NOT_FOUND', message: "Leitura não encontrada"
-      }
+      throw new NotFoundException('MEASURE_NOT_FOUND', "Leitura não encontrada")
     } else if (measureAllReadyExists.hasConfirmed === true) {
-      return {
-        status: 'CONFIRMATION_DUPLICATE', message: "Leitura do mês já realizada"
-      }
+      throw new DoubleReportException('CONFIRMATION_DUPLICATE', "Leitura do mês já realizada")
     }
-
     await this.measureModel.confirmMeasure(object.measureUuid, object.measureValue)
     return { status: 'SUCCESSFUL', message: 'ok' };
   }
@@ -64,9 +61,7 @@ export default class MeasureService {
     const allMeasures = await this.measureModel.findAllMeasures(code, type);
 
     if (!allMeasures) {
-      return {
-        status: 'MEASURES_NOT_FOUND', message: "Nenhuma leitura encontrada"
-      }
+      throw new NotFoundException('MEASURES_NOT_FOUND', "Nenhuma leitura encontrada")
     }
 
     return { status: 'SUCCESSFUL', message: allMeasures };
