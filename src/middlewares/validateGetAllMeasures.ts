@@ -13,7 +13,7 @@ export const validateGetAllMeasures = (
         return res
             .status(400)
             .json({
-                error_code: "INVALID_TYPE", "error_description": "Tipo de medição não permitida" });
+                error_code: "INVALID_TYPE", error_description: "Tipo de medição não permitida" });
     }
    
     next();

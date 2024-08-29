@@ -76,6 +76,24 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Tipo de medição não permitida",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties":{
+                                        "error_code": {
+                                            "type":"string"
+                                        },
+                                        "error_description":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "409": {
                         "description": "Nenhuma medição encontrada.",
                         "content": {
@@ -133,6 +151,24 @@
                                     "properties": {
                                         "success": {
                                             "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo de medição não permitida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
                                         }
                                     }
                                 }
@@ -228,6 +264,24 @@
                                             "type": "number"
                                         },
                                         "measure_uuid": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Tipo de medição não permitida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
                                             "type": "string"
                                         }
                                     }
