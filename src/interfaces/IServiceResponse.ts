@@ -1,4 +1,4 @@
-type ServiceResponseErrorType = 'INVALID_DATA' | 'DOUBLE_REPORT' | 'MEASURE_NOT_FOUND' | 'CONFIRMATION_DUPLICATE';
+type ServiceResponseErrorType = 'INVALID_DATA' | 'DOUBLE_REPORT' | 'MEASURE_NOT_FOUND' | 'MEASURES_NOT_FOUND' |'CONFIRMATION_DUPLICATE';
 
 interface ServiceResponseError {
     status: ServiceResponseErrorType,

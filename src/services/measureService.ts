@@ -1,4 +1,4 @@
-import { ICreateMeasure, IMeasureDate, IMeasureSummary } from "../interfaces/ICreateMeasure";
+import { ICreateMeasure, IMeasureDate, IMeasureResponseSummary, IMeasureSummary } from "../interfaces/ICreateMeasure";
 import { IMeasure } from "../interfaces/IMeasure";
 import { ServiceResponse } from "../interfaces/IServiceResponse";
 import MeasureModel from "../models/measureModel";
@@ -31,7 +31,7 @@ export default class MeasureService {
         return { status: 'SUCCESSFUL', message: newMeasure };
     }
 
-    public async confirmMeasure(object: IMeasureSummary) {
+    public async confirmMeasure(object: IMeasureSummary): Promise<ServiceResponse<string>>  {
         const measureAllReadyExists = await this.measureModel.findMeasureByUuid(object.measureUuid);
         if (!measureAllReadyExists) {
             return {
@@ -47,7 +47,7 @@ export default class MeasureService {
         return { status: 'SUCCESSFUL', message: 'ok' };
     }
 
-    public async listMeasures(code: string, type: string) {
+    public async listMeasures(code: string, type: string): Promise<ServiceResponse<IMeasureResponseSummary[]>> {
         const allMeasures = await this.measureModel.findAllMeasures(code, type);
 
         if (!allMeasures) {
