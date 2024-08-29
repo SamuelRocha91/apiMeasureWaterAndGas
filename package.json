@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ignore-pattern 'node_modules/**/*' --ext .ts",
+    "lint:fix": "eslint . --ignore-pattern 'node_modules/**/*' --ext .ts --fix"
   },
   "keywords": [],
   "author": "",

@@ -8,9 +8,9 @@ const measureController = new MeasureController()
 const confirmMeasuresRouter = Router();
 
 confirmMeasuresRouter.route('/').patch(
-    validateMeasureUuid,
-    validateConfirmedValue,
-    measureController.confirmMeasure.bind(measureController)
+  validateMeasureUuid,
+  validateConfirmedValue,
+  measureController.confirmMeasure.bind(measureController)
 )
 
 export default confirmMeasuresRouter;
