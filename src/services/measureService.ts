@@ -46,7 +46,7 @@ export default class MeasureService {
       return {
         status: 'MEASURE_NOT_FOUND', message: "Leitura não encontrada"
       }
-    } else if (measureAllReadyExists.hasConfirmed) {
+    } else if (measureAllReadyExists.hasConfirmed === true) {
       return {
         status: 'CONFIRMATION_DUPLICATE', message: "Leitura do mês já realizada"
       }
