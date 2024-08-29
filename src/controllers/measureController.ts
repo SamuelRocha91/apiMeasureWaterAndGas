@@ -18,7 +18,9 @@ export default class MeasureController {
       measureDatetime: new Date(data.measure_datetime),
       measureType: data.measure_type
     }
+
     const response = await this.measureService.createMeasure(object);
+
     if (response.status !== 'SUCCESSFUL') {
       return res.status(httpStatus.CONFLICT).json(
         {
@@ -71,13 +73,13 @@ export default class MeasureController {
     const { measure_type: measureType } = req.query;
     let response;
     if (measureType && typeof measureType === 'string') {
-      response = await this.measureService.listMeasures(customerCode, measureType);
+      response = await this.measureService.listMeasures(customerCode, measureType.toUpperCase());
     } else {
       response = await this.measureService.listMeasures(customerCode, '');
     }
 
     if (response.status === 'MEASURES_NOT_FOUND') {
-      return res.status(httpStatus.CONFLICT).json(
+      return res.status(httpStatus.NOT_FOUND).json(
         {
           error_code: response.status,
           error_description: response.message
@@ -92,13 +94,13 @@ export default class MeasureController {
           customer_code: customerCode,
           measure: []
         }
-
+    objectResponse.customer_code = customerCode
     if (Array.isArray(response.message)) {
       response.message.forEach((item) => {
         const newMeasure = {
           measure_uuid: item.measureUuid,
           measure_type: item.measureType,
-          measure_datetime: item.measureDatetime,
+          measure_datetime: new Date(item.measureDatetime),
           has_confirmed: item.hasConfirmed,
           image_url: getImageUrl(item.image?.imagePath || '')
         }

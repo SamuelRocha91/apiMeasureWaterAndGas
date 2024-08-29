@@ -9,8 +9,8 @@ export const validateGetAllMeasures = (
   const { measure_type: measureType } = req.query;
   const types = ["WATER", "GAS"]
   
-  if (measureType && typeof measureType === 'string'
-        && !types.includes(measureType.toUpperCase())) {
+  if (measureType && typeof measureType !== 'string' || 
+    (typeof measureType === 'string' && !types.includes(measureType.toUpperCase()))) {
     return res
       .status(httpStatus.BAD_REQUEST)
       .json({
