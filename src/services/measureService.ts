@@ -58,7 +58,8 @@ export default class MeasureService {
 
   public async listMeasures(
     code: string,
-    type: string): Promise<ServiceResponse<IMeasureResponseSummary[]>>
+    type: string
+  ): Promise<ServiceResponse<IMeasureResponseSummary[]>>
   {
     const allMeasures = await this.measureModel.findAllMeasures(code, type);
 
