@@ -18,7 +18,9 @@ export default class MeasureController {
       measureDatetime: new Date(data.measure_datetime),
       measureType: data.measure_type
     }
+
     const response = await this.measureService.createMeasure(object);
+
     if (response.status !== 'SUCCESSFUL') {
       return res.status(httpStatus.CONFLICT).json(
         {
