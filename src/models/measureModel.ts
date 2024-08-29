@@ -1,5 +1,5 @@
 import { ICreateImage } from '../interfaces/ICreateImage';
-import { IConfirmed, ICreateMeasure, IMeasureDate } from '../interfaces/ICreateMeasure';
+import { IConfirmed, ICreateMeasure, IMeasureDate, IMeasureReponse, IMeasureResponseSummary } from '../interfaces/ICreateMeasure';
 import { IMeasure } from '../interfaces/IMeasure';
 import { PrismaClient } from '@prisma/client';
 
@@ -60,7 +60,7 @@ export default class MeasureModel {
         })
     }
 
-    async confirmMeasure(uuid: string, value: number) {
+    async confirmMeasure(uuid: string, value: number): Promise<IMeasureReponse> {
         return await this.prismaClient.measure.update({
             where: {
                 measureUuid: uuid
@@ -72,7 +72,7 @@ export default class MeasureModel {
         })
     }
 
-    async findAllMeasures(code: string, type: string) {
+    async findAllMeasures(code: string, type: string): Promise<IMeasureResponseSummary[]> {
         return await this.prismaClient.measure.findMany({
             where: {
                 customerCode: code,
