@@ -1,4 +1,5 @@
 import { image1Base64 } from "../images/image1"
+import { getImageUrl } from "../../utils/image.utils"
 
 const invalidMeasureType = {
   "image": image1Base64,
@@ -93,6 +94,31 @@ const measureConfirmValueInvalid = {
   confirmed_value: "292"
 }
 
+const listMeasures = [
+  {
+    measureUuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+    measureType: "GAS",
+    measureDatetime: new Date("2024-04-28T14:35:21.000Z"),
+    hasConfirmed: true,
+    image: {
+      imagePath: "d1d21ce1-9020-4041-9502-7dd2b4e29220_WATER_1724876616987.png"
+    }
+  }
+]
+
+const objectResponse = {
+  customer_code: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  measure: [
+    {
+      measure_uuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+      measure_type: "GAS",
+      measure_datetime: "2024-04-28T14:35:21.000Z",
+      has_confirmed: true,
+      image_url: getImageUrl("d1d21ce1-9020-4041-9502-7dd2b4e29220_WATER_1724876616987.png")
+    }
+  ]
+}
+
 export default {
   invalidMeasureType,
   invalidCustomerCode,
@@ -106,5 +132,7 @@ export default {
   measureConfirmValid,
   measureConfirmValidCamelCase,
   measureConfirmValueInvalid,
-  measureConfirmUuidInvalid
+  measureConfirmUuidInvalid,
+  listMeasures,
+  objectResponse
 }

@@ -320,3 +320,91 @@ describe('PATCH /confirm', function () {
       })
   })
 })
+
+describe('GET /customer_code/list', function () {
+  beforeEach(function () {
+    sinon.restore();
+  });
+  const customerCode = "d1d21ce1-9020-4041-9502-7dd2b4e29220";
+
+  describe('Testes de middlewares', function () {
+    it('ao receber uma requisição com query parameter incorreto, retorne um erro',
+      async function () {
+        //Act
+        const httpResponse = await chai
+          .request(app)
+          .get(`/${customerCode}/list?measure_type=xicara`)
+
+        //Assert
+        expect(httpResponse.status).to.equal(httpStatus.BAD_REQUEST);
+        expect(httpResponse.body.error_code).to.equal("INVALID_TYPE");
+        expect(httpResponse.body.error_description)
+          .to.equal("Tipo de medição não permitida");
+      })
+  })
+  describe('Testes de controller', function () {
+    it('ao receber customer_code sem medição cadastrada, retorne um erro', async function () {
+    // Arrange
+      sinon.stub(MeasureService.prototype, 'listMeasures').resolves({
+        status: 'MEASURES_NOT_FOUND', message: "Nenhuma leitura encontrada"
+      });
+
+      //Act
+      const httpResponse = await chai
+        .request(app)
+        .get(`/${customerCode}/list`)
+
+      //Assert  
+      expect(httpResponse.status).to.equal(httpStatus.NOT_FOUND);
+      expect(httpResponse.body.error_code).to.equal('MEASURES_NOT_FOUND');
+      expect(httpResponse.body.error_description)
+        .to.equal("Nenhuma leitura encontrada");
+    })
+    it('ao receber dados corretos, retorne um status de sucessso', async function () {
+    // Arrange
+      sinon.stub(MeasureService.prototype, 'listMeasures').resolves({
+        status: 'SUCCESSFUL', message: mockMeasure.listMeasures
+      });
+
+      //Act
+      const httpResponse = await chai
+        .request(app)
+        .get("/d1d21ce1-9020-4041-9502-7dd2b4e29220/list?measure_type=gAs")
+      //Assert  
+      expect(httpResponse.status).to.equal(httpStatus.OK);
+      expect(httpResponse.body).to.deep.equal(mockMeasure.objectResponse)
+    })
+  })
+
+  describe('Testes de service', async function () {
+    const measureService = new MeasureService();
+
+    it('ao verificar a inexistência da medição, retorna status de MEASURES_NOT_FOUND',
+      async function () {
+        // Arrange
+        sinon.stub(MeasureModel.prototype, 'findAllMeasures').resolves(undefined);
+
+        //Act
+        const serviceResponse = await measureService
+          .listMeasures(customerCode, "GAS")
+
+        //Assert  
+        expect(serviceResponse.status).to.equal('MEASURES_NOT_FOUND');
+        expect(serviceResponse.message).to.equal("Nenhuma leitura encontrada");
+      })
+
+    it('ao verificar a existência das medições, retorna status de SUCCESSFUL',
+      async function () {
+        // Arrange
+        sinon.stub(MeasureModel.prototype, 'findAllMeasures').resolves(mockMeasure.listMeasures);
+
+        //Act
+        const serviceResponse = await measureService
+          .listMeasures(customerCode, "GAS")
+
+        //Assert  
+        expect(serviceResponse.status).to.equal('SUCCESSFUL');
+      })
+  })
+})
+
