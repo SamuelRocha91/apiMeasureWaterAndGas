@@ -22,7 +22,7 @@ app.use(express.json({ limit: '10mb' }));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/:customerCode', listMeasuresRouter)
+app.use('/:customerCode/list', listMeasuresRouter)
 
 app.use('/confirm', confirmMeasuresRouter)
 

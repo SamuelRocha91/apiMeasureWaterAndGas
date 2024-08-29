@@ -4,9 +4,9 @@ import { validateGetAllMeasures } from '../middlewares/validateGetAllMeasures';
 
 const measureController = new MeasureController()
 
-const listMeasuresRouter = Router();
+const listMeasuresRouter = Router({ mergeParams: true });
 
-listMeasuresRouter.route('/list').get(
+listMeasuresRouter.route('/').get(
   validateGetAllMeasures,
   measureController.listMeasures.bind(measureController)
 )
