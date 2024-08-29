@@ -34,10 +34,77 @@ const validMeasure = {
   "measure_datetime": "2024-08-28T14:35:21.000Z",
   "measure_type": "GAS"
 }
+
+const validMeasureCamelCase = {
+  "image": image1Base64,
+  "customerCode": "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  "measureDatetime": new Date("2024-08-28T14:35:21.000Z"),
+  "measureType": "GAS"
+}
+
+const validMeasureDateNew = {
+  "image": image1Base64,
+  "customerCode": "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  "measureDatetime": new Date("2024-12-28T14:35:21.000Z"),
+  "measureType": "GAS"
+}
+
+const measureSaved = {
+  imageUrl: "d1d21ce1-9020-4041-9502-7dd2b4e29220_WATER_1724876616987.png",
+  measureValue: 292,
+  measureUuid: "d1d21ce1 - 9020 - 4041 - 9502 - 7dd2b4e29220"
+}
+
+const measureSaveds = [
+  {
+    measureDatetime: new Date("2024-08-28T14:35:21.000Z")
+  },
+  {
+    measureDatetime: new Date("2024-07-28T14:35:21.000Z")
+  },
+  {
+    measureDatetime: new Date("2024-06-28T14:35:21.000Z")
+  },
+  {
+    measureDatetime: new Date("2024-05-28T14:35:21.000Z")
+  },
+  {
+    measureDatetime: new Date("2024-04-28T14:35:21.000Z")
+  }
+]
+
+const measureConfirmValid = {
+  measure_uuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  confirmed_value: 292
+}
+
+const measureConfirmValidCamelCase = {
+  measureUuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  measureValue: 292
+}
+
+const measureConfirmUuidInvalid = {
+  measure_uuid: "",
+  confirmed_value: 292
+}
+
+const measureConfirmValueInvalid = {
+  measure_uuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220",
+  confirmed_value: "292"
+}
+
 export default {
   invalidMeasureType,
   invalidCustomerCode,
   invalidImageBase64,
   invalidMeasureDate,
-  validMeasure
+  validMeasure,
+  validMeasureCamelCase,
+  validMeasureDateNew,
+  measureSaved,
+  measureSaveds,
+  measureConfirmValid,
+  measureConfirmValidCamelCase,
+  measureConfirmValueInvalid,
+  measureConfirmUuidInvalid
 }
