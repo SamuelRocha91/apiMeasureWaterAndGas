@@ -4,9 +4,9 @@ type ServiceResponseErrorType = 'INVALID_DATA'
     | 'MEASURES_NOT_FOUND'
     | 'CONFIRMATION_DUPLICATE';
 
-interface ServiceResponseError {
+interface ServiceResponseError<T> {
     status: ServiceResponseErrorType,
-    message: string
+    message: T
 };
 
 interface ServiceResponseSuccess<T> {
@@ -14,4 +14,4 @@ interface ServiceResponseSuccess<T> {
     message: T
 };
 
-export type ServiceResponse<T> = ServiceResponseError | ServiceResponseSuccess<T>;
+export type ServiceResponse<T> = ServiceResponseError<T> | ServiceResponseSuccess<T>;

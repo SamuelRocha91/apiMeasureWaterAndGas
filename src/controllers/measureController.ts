@@ -20,21 +20,13 @@ export default class MeasureController {
     }
 
     const response = await this.measureService.createMeasure(object);
-
-    if (response.status !== 'SUCCESSFUL') {
-      return res.status(httpStatus.CONFLICT).json(
-        {
-          error_code: response.status,
-          error_description: response.message
-        }
-      );
-    }
-    const imageUrl = getImageUrl(response.message.imageUrl as string)
+    const { message: { imageUrl, measureValue, measureUuid } } = response;
+    const imageFinal = getImageUrl(imageUrl || '')
     return res.status(httpStatus.CREATED).json(
       {
-        image_url: imageUrl,
-        measure_value: response.message.measureValue,
-        measure_uuid: response.message.measureUuid
+        image_url: imageFinal,
+        measure_value: measureValue,
+        measure_uuid: measureUuid
       });
   }
 
@@ -45,22 +37,8 @@ export default class MeasureController {
       measureValue: data.confirmed_value
     }
 
-    const response = await this.measureService.confirmMeasure(object);
+    await this.measureService.confirmMeasure(object);
 
-    if (response.status === 'MEASURE_NOT_FOUND') {
-      return res.status(httpStatus.NOT_FOUND).json(
-        {
-          error_code: response.status,
-          error_description: response.message
-        });
-    } else if (response.status === 'CONFIRMATION_DUPLICATE') {
-      return res.status(httpStatus.CONFLICT).json(
-        {
-          error_code: response.status,
-          error_description: response.message
-        }
-      );
-    }
     return res.status(httpStatus.OK).json(
       {
         success: true
@@ -77,16 +55,7 @@ export default class MeasureController {
     } else {
       response = await this.measureService.listMeasures(customerCode, '');
     }
-
-    if (response.status === 'MEASURES_NOT_FOUND') {
-      return res.status(httpStatus.NOT_FOUND).json(
-        {
-          error_code: response.status,
-          error_description: response.message
-        }
-      );
-    }
-
+  
     const objectResponse: {
             customer_code: string;
             measure: IMeasureAll[];

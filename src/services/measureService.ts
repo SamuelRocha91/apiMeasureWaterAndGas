@@ -39,6 +39,7 @@ export default class MeasureService {
       size: size
     }
     const newMeasure = await this.measureModel.create(measure, value, dataImage)
+
     return { status: 'SUCCESSFUL', message: newMeasure };
   }
 
