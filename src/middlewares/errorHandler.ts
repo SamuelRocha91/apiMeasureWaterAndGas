@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import BaseError from "../exceptions/BaseError";
 import InternalServerException from "../exceptions/InternalServerException";
 
@@ -13,7 +13,9 @@ const normalizeError = (err: Error) => {
 const ErrorHandler = (
   error: Error,
   _req: Request,
-  res: Response
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _next: NextFunction
 ) => {
   const baseError = normalizeError(error);
 
