@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import InvalidDataException from "../exceptions/InvalidDataException";
 
-function validateConfirmedValue(req: Request, res: Response, next: NextFunction): Response | void {
+function validateConfirmedValue(req: Request, _res: Response, next: NextFunction): Response | void {
 
   try {
     const { confirmed_value: confirmedValue } = req.body;

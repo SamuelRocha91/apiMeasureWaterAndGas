@@ -3,7 +3,7 @@ import InvalidDataException from "../exceptions/InvalidDataException";
 
 export const validateGetAllMeasures = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   try {

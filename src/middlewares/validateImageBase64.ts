@@ -4,7 +4,7 @@ import InvalidDataException from "../exceptions/InvalidDataException";
 const PARTS_LENGTH = 2;
 const FIGURE_LENGTH = 4;
 
-function validateImageBase64(req: Request, res: Response, next: NextFunction): Response | void {
+function validateImageBase64(req: Request, _res: Response, next: NextFunction): Response | void {
   try {
     const { image } = req.body;
     if (!image) {
