@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import BaseError from '../exceptions/BaseError';
-import InternalServerException from '../exceptions/InternalServerException';
+import { NextFunction, Request, Response } from "express";
+import BaseError from "../exceptions/BaseError";
+import InternalServerException from "../exceptions/InternalServerException";
 
 const normalizeError = (err: Error) => {
   if (err instanceof BaseError) {

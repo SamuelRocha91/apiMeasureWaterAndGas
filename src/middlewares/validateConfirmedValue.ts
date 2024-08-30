@@ -1,19 +1,21 @@
-import { Response, Request, NextFunction } from 'express';
-import { httpStatus } from '../utils/httpStatus.utils';
+import { Response, Request, NextFunction } from "express";
+import InvalidDataException from "../exceptions/InvalidDataException";
 
 function validateConfirmedValue(req: Request, res: Response, next: NextFunction): Response | void {
-  const { confirmed_value: confirmedValue } = req.body;
 
-  if (!confirmedValue || typeof confirmedValue !== 'number') {
-    return res.status(httpStatus.BAD_REQUEST).json(
-      {
-        error_code: 'INVALID_DATA',
-        error_description: "Os dados fornecidos no corpo da requisição são inválidos"
-      }
-    );
+  try {
+    const { confirmed_value: confirmedValue } = req.body;
+
+    if (!confirmedValue || typeof confirmedValue !== "number") {
+    
+      throw new InvalidDataException("INVALID_DATA",
+        "Os dados fornecidos no corpo da requisição são inválidos");
+    }
+
+    return next();
+  } catch (error) {
+    return next(error);
   }
-
-  return next();
 }
 
 export default validateConfirmedValue;

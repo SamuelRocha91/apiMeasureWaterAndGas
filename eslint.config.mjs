@@ -2,7 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
-const NUMBER_INDENT = 2
+const NUMBER_INDENT = 2;
 
 export default [
   { files: ["**/*.{js,mjs,cjs,ts}"] },
@@ -26,7 +26,9 @@ export default [
       "array-bracket-spacing": ["error", "never"],
       "space-in-parens": ["error", "never"],
       "template-curly-spacing": ["error", "never"],
-      "comma-dangle": ["error", "never"]
+      "comma-dangle": ["error", "never"],
+      "quotes": ["error", "double"],
+      "semi": ["error", "always"]
     }
   }
 ];

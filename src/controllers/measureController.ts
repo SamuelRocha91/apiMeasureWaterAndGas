@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import MeasureService from '../services/measureService';
-import { getImageUrl } from '../utils/image.utils';
-import { IMeasureAll } from '../interfaces/IMeasure';
-import { httpStatus } from '../utils/httpStatus.utils';
+import { Request, Response, NextFunction } from "express";
+import MeasureService from "../services/measureService";
+import { getImageUrl } from "../utils/image.utils";
+import { IMeasureAll } from "../interfaces/IMeasure";
+import { httpStatus } from "../utils/httpStatus.utils";
 
 export default class MeasureController {
 
@@ -19,11 +19,11 @@ export default class MeasureController {
         customerCode: data.customer_code,
         measureDatetime: new Date(data.measure_datetime),
         measureType: data.measure_type
-      }
+      };
 
       const response = await this.measureService.createMeasure(object);
       const { message: { imageUrl, measureValue, measureUuid } } = response;
-      const imageFinal = getImageUrl(imageUrl || '')
+      const imageFinal = getImageUrl(imageUrl || "");
       return res.status(httpStatus.CREATED).json(
         {
           image_url: imageFinal,
@@ -41,7 +41,7 @@ export default class MeasureController {
       const object = {
         measureUuid: data.measure_uuid,
         measureValue: data.confirmed_value
-      }
+      };
 
       await this.measureService.confirmMeasure(object);
 
@@ -60,10 +60,10 @@ export default class MeasureController {
       const { customerCode } = req.params;
       const { measure_type: measureType } = req.query;
       let response;
-      if (measureType && typeof measureType === 'string') {
+      if (measureType && typeof measureType === "string") {
         response = await this.measureService.listMeasures(customerCode, measureType.toUpperCase());
       } else {
-        response = await this.measureService.listMeasures(customerCode, '');
+        response = await this.measureService.listMeasures(customerCode, "");
       }
   
       const objectResponse: {
@@ -72,8 +72,8 @@ export default class MeasureController {
       } = {
         customer_code: customerCode,
         measure: []
-      }
-      objectResponse.customer_code = customerCode
+      };
+      objectResponse.customer_code = customerCode;
       if (Array.isArray(response.message)) {
         response.message.forEach((item) => {
           const newMeasure = {
@@ -81,11 +81,10 @@ export default class MeasureController {
             measure_type: item.measureType,
             measure_datetime: new Date(item.measureDatetime),
             has_confirmed: item.hasConfirmed,
-            image_url: getImageUrl(item.image?.imagePath || '')
-          }
-          objectResponse.measure.push(newMeasure)
-        })
-
+            image_url: getImageUrl(item.image?.imagePath || "")
+          };
+          objectResponse.measure.push(newMeasure);
+        });
       }
 
       return res.status(httpStatus.OK).json(objectResponse);

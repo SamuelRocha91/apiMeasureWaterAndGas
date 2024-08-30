@@ -21,9 +21,9 @@ async function checkMeasureValue(mime: string, base64: string): Promise<number> 
       }
     },
     { text: PROMPT }
-  ])
+  ]);
 
-  return Number(result.response.text().match(/\d+/)[0])
+  return Number(result.response.text().match(/\d+/)[0]);
 }
 
 export default checkMeasureValue;

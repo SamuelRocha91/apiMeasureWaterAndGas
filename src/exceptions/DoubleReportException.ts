@@ -1,5 +1,5 @@
-import { httpStatus } from '../utils/httpStatus.utils';
-import BaseError from './BaseError';
+import { httpStatus } from "../utils/httpStatus.utils";
+import BaseError from "./BaseError";
 
 export default class DoubleReportException extends BaseError {
   constructor(typeError: string, message: string) {
