@@ -1,29 +1,19 @@
 FROM node:20.5.0
 
-# Defina o diretório de trabalho
 WORKDIR /app/backend
 
-# Copie o package.json e package-lock.json para instalar as dependências
 COPY package*.json ./
 
-# Copie o diretório do Prisma para o contêiner
 COPY ./prisma ./prisma
 
-# Instale as dependências
 RUN npm ci --quiet
 
-# Gere o Prisma schema
 RUN npx prisma generate
 
-# Copie o restante dos arquivos do projeto
 COPY . .
 
-# Construa o projeto
 RUN npm run build
 
-# Exponha a porta
 EXPOSE 3001
 
-# Comando para iniciar o aplicativo
 CMD ["npm", "start"]
-
