@@ -1,4 +1,3 @@
-```markdown
 # APISHOPPER
 
 APISHOPPER é uma API desenvolvida para gerenciar medições de clientes em diferentes tipos de serviços. A aplicação utiliza Node.js, TypeScript, Prisma, Express.js e outras tecnologias para oferecer um backend robusto e escalável.
