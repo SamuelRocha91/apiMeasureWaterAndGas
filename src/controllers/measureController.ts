@@ -14,14 +14,14 @@ export default class MeasureController {
   ) {
     try {
       const data = req.body;
-      const object = {
+      const objectMeasureCamelCase = {
         image: data.image,
         customerCode: data.customer_code,
         measureDatetime: new Date(data.measure_datetime),
         measureType: data.measure_type
       };
 
-      const response = await this.measureService.createMeasure(object);
+      const response = await this.measureService.createMeasure(objectMeasureCamelCase);
       const { message: { imageUrl, measureValue, measureUuid } } = response;
       const imageFinal = getImageUrl(imageUrl || "");
       return res.status(httpStatus.CREATED).json(
@@ -38,12 +38,12 @@ export default class MeasureController {
   public async confirmMeasure(req: Request, res: Response, next: NextFunction) {
     try {
       const data = req.body;
-      const object = {
+      const objectMeasureCamelCase = {
         measureUuid: data.measure_uuid,
         measureValue: data.confirmed_value
       };
 
-      await this.measureService.confirmMeasure(object);
+      await this.measureService.confirmMeasure(objectMeasureCamelCase);
 
       return res.status(httpStatus.OK).json(
         {
@@ -63,7 +63,7 @@ export default class MeasureController {
       if (measureType && typeof measureType === "string") {
         response = await this.measureService.listMeasures(customerCode, measureType.toUpperCase());
       } else {
-        response = await this.measureService.listMeasures(customerCode, "");
+        response = await this.measureService.listMeasures(customerCode);
       }
   
       const objectResponse: {
