@@ -1,30 +1,30 @@
-import sinon from 'sinon';
-import chai, { expect } from 'chai';
-import chaiHttp from 'chai-http';
-import chaisAsPromised from 'chai-as-promised';
-import app from '../server';
-import  mockMeasure  from './mocks/measures.mock'
-import { httpStatus } from '../utils/httpStatus.utils';
-import MeasureService from '../services/measureService';
-import MeasureModel from '../models/measureModel';
-import { getImageUrl } from '../utils/image.utils';
-import { IMeasure } from '../interfaces/IMeasure';
-import * as imageUtils from '../utils/image.utils'
-import * as googleApi from '../utils/gemini.utils'
-import { IMeasureSummary } from '../interfaces/ICreateMeasure';
-import DoubleReportException from '../exceptions/DoubleReportException';
-import NotFoundException from '../exceptions/NotFoundException';
+import sinon from "sinon";
+import chai, { expect } from "chai";
+import chaiHttp from "chai-http";
+import chaisAsPromised from "chai-as-promised";
+import app from "../server";
+import mockMeasure from "./mocks/measures.mock";
+import { httpStatus } from "../utils/httpStatus.utils";
+import MeasureService from "../services/measureService";
+import MeasureModel from "../models/measureModel";
+import { getImageUrl } from "../utils/image.utils";
+import { IMeasure } from "../interfaces/IMeasure";
+import * as imageUtils from "../utils/image.utils";
+import * as googleApi from "../utils/gemini.utils";
+import { IMeasureSummary } from "../interfaces/ICreateMeasure";
+import DoubleReportException from "../exceptions/DoubleReportException";
+import NotFoundException from "../exceptions/NotFoundException";
 
 chai.use(chaisAsPromised);
 chai.use(chaiHttp);
 
-describe('POST /upload', function () {
+describe("POST /upload", function () {
   beforeEach(function () {
     sinon.restore();
   });
     
-  describe('Testes de middlewares', function () {
-    it('ao receber uma requisição com um tipo de medição incorreto, retorne um erro',
+  describe("Testes de middlewares", function () {
+    it("ao receber uma requisição com um tipo de medição incorreto, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.invalidMeasureType;
@@ -32,7 +32,7 @@ describe('POST /upload', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .post('/upload')
+          .post("/upload")
           .send(httpRequestBody);
 
         //Assert
@@ -40,8 +40,8 @@ describe('POST /upload', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })    
-    it('ao receber uma requisição com uma imagem base64 incorreta, retorne um erro',
+      });
+    it("ao receber uma requisição com uma imagem base64 incorreta, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.invalidImageBase64;
@@ -49,7 +49,7 @@ describe('POST /upload', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .post('/upload')
+          .post("/upload")
           .send(httpRequestBody);
 
         //Assert
@@ -57,8 +57,8 @@ describe('POST /upload', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })    
-    it('ao receber uma requisição com um formato de data incorreto, retorne um erro',
+      });
+    it("ao receber uma requisição com um formato de data incorreto, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.invalidMeasureDate;
@@ -66,7 +66,7 @@ describe('POST /upload', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .post('/upload')
+          .post("/upload")
           .send(httpRequestBody);
 
         //Assert
@@ -74,8 +74,8 @@ describe('POST /upload', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })    
-    it('ao receber uma requisição com um formato de customer uuid incorreto, retorne um erro',
+      });
+    it("ao receber uma requisição com um formato de customer uuid incorreto, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.invalidCustomerCode;
@@ -83,7 +83,7 @@ describe('POST /upload', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .post('/upload')
+          .post("/upload")
           .send(httpRequestBody);
 
         //Assert
@@ -91,40 +91,40 @@ describe('POST /upload', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })    
-  })
-  describe('Testes de controller', function () {
-    it('ao receber medição já cadastrada, retorne um erro', async function () {
-    // Arrange
+      });
+  });
+  describe("Testes de controller", function () {
+    it("ao receber medição já cadastrada, retorne um erro", async function () {
+      // Arrange
       const httpRequestBody = mockMeasure.validMeasure;
-      sinon.stub(MeasureService.prototype, 'createMeasure')
-        .throws(new DoubleReportException('DOUBLE_REPORT', "Leitura do mês já realizada"))
+      sinon.stub(MeasureService.prototype, "createMeasure")
+        .throws(new DoubleReportException("DOUBLE_REPORT", "Leitura do mês já realizada"));
     
       //Act
       const httpResponse = await chai
         .request(app)
-        .post('/upload')
+        .post("/upload")
         .send(httpRequestBody);
   
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.CONFLICT);
-      expect(httpResponse.body.error_code).to.equal('DOUBLE_REPORT');
+      expect(httpResponse.body.error_code).to.equal("DOUBLE_REPORT");
       expect(httpResponse.body.error_description)
         .to.equal("Leitura do mês já realizada");
-    })  
+    });
       
-    it('ao receber medição nova, retorna status CREATED e dados da medição', async function () {
+    it("ao receber medição nova, retorna status CREATED e dados da medição", async function () {
       // Arrange
       const httpRequestBody = mockMeasure.validMeasure;
-      sinon.stub(MeasureService.prototype, 'createMeasure').resolves({
-        status: 'SUCCESSFUL', message: mockMeasure.measureSaved
+      sinon.stub(MeasureService.prototype, "createMeasure").resolves({
+        status: "SUCCESSFUL", message: mockMeasure.measureSaved
       });
       const url = getImageUrl(mockMeasure.measureSaved.imageUrl);
 
       //Act
       const httpResponse = await chai
         .request(app)
-        .post('/upload')
+        .post("/upload")
         .send(httpRequestBody);
 
       //Assert  
@@ -132,52 +132,51 @@ describe('POST /upload', function () {
       expect(httpResponse.body.measure_value).to.equal(mockMeasure.measureSaved.measureValue);
       expect(httpResponse.body.measure_uuid).to.equal(mockMeasure.measureSaved.measureUuid);
       expect(httpResponse.body.image_url).to.equal(url);
-    })  
-  })
+    });
+  });
     
-  describe('Testes de service', async function () {
+  describe("Testes de service", async function () {
     const measureService = new MeasureService();
     const value = 292;
     const path = "d1d21ce1-9020-4041-9502-7dd2b4e29220_WATER_1724876616987.png";
-    it('ao verificar a existência medição para o mesmo período, lança uma exceção de DOUBLE_REPORT',
+    it("ao verificar a existência medição para o mesmo período, lança uma exceção de DOUBLE_REPORT",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findAllByCode').resolves(mockMeasure.measureSaveds);
+        sinon.stub(MeasureModel.prototype, "findAllByCode").resolves(mockMeasure.measureSaveds);
 
         //Act
         //Assert  
         await expect(measureService.createMeasure(mockMeasure.validMeasureCamelCase as IMeasure))
-          .to.be.rejectedWith(DoubleReportException)
-      })
+          .to.be.rejectedWith(DoubleReportException);
+      });
       
-    it('quando os dados são processados corretamente, retorna status de SUCCESSFUL',
+    it("quando os dados são processados corretamente, retorna status de SUCCESSFUL",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findAllByCode').resolves(mockMeasure.measureSaveds);
-        sinon.stub(imageUtils, 'extractMimeType').resolves('image/png');
-        sinon.stub(imageUtils, 'extractSize').resolves(1);
-        sinon.stub(imageUtils, 'saveBase64Image')
+        sinon.stub(MeasureModel.prototype, "findAllByCode").resolves(mockMeasure.measureSaveds);
+        sinon.stub(imageUtils, "extractMimeType").resolves("image/png");
+        sinon.stub(imageUtils, "extractSize").resolves(1);
+        sinon.stub(imageUtils, "saveBase64Image")
           .resolves(path);
-        sinon.stub(googleApi, 'default').resolves(value);
-        sinon.stub(MeasureModel.prototype, 'create').resolves(mockMeasure.measureSaved);
+        sinon.stub(googleApi, "default").resolves(value);
+        sinon.stub(MeasureModel.prototype, "create").resolves(mockMeasure.measureSaved);
         //Act
         const serviceResponse = await measureService
-          .createMeasure(mockMeasure.validMeasureDateNew as IMeasure)
+          .createMeasure(mockMeasure.validMeasureDateNew as IMeasure);
 
         //Assert  
-        expect(serviceResponse.status).to.equal('SUCCESSFUL');
+        expect(serviceResponse.status).to.equal("SUCCESSFUL");
         expect(serviceResponse.message).to.equal(mockMeasure.measureSaved);
-      })
-  })
-})
-
-describe('PATCH /confirm', function () {
+      });
+  });
+});
+describe("PATCH /confirm", function () {
   beforeEach(function () {
     sinon.restore();
   });
 
-  describe('Testes de middlewares', function () {
-    it('ao receber uma requisição com um measureUuid incorreto, retorne um erro',
+  describe("Testes de middlewares", function () {
+    it("ao receber uma requisição com um measureUuid incorreto, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.measureConfirmUuidInvalid;
@@ -185,7 +184,7 @@ describe('PATCH /confirm', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .patch('/confirm')
+          .patch("/confirm")
           .send(httpRequestBody);
 
         //Assert
@@ -193,8 +192,8 @@ describe('PATCH /confirm', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })
-    it('ao receber uma confirmação de valor inválida, retorne um erro',
+      });
+    it("ao receber uma confirmação de valor inválida, retorne um erro",
       async function () {
         // Arrange
         const httpRequestBody = mockMeasure.measureConfirmValueInvalid;
@@ -202,7 +201,7 @@ describe('PATCH /confirm', function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .patch('/confirm')
+          .patch("/confirm")
           .send(httpRequestBody);
 
         //Assert
@@ -210,56 +209,56 @@ describe('PATCH /confirm', function () {
         expect(httpResponse.body.error_code).to.equal("INVALID_DATA");
         expect(httpResponse.body.error_description)
           .to.equal("Os dados fornecidos no corpo da requisição são inválidos");
-      })
-  })
-  describe('Testes de controller', function () {
-    it('ao receber medição não cadastrada para confirmação, retorne um erro', async function () {
-    // Arrange
+      });
+  });
+  describe("Testes de controller", function () {
+    it("ao receber medição não cadastrada para confirmação, retorne um erro", async function () {
+      // Arrange
       const httpRequestBody = mockMeasure.measureConfirmValid;
-      sinon.stub(MeasureService.prototype, 'confirmMeasure').throws(
-        new NotFoundException('MEASURE_NOT_FOUND', "Leitura não encontrada"));
+      sinon.stub(MeasureService.prototype, "confirmMeasure").throws(
+        new NotFoundException("MEASURE_NOT_FOUND", "Leitura não encontrada"));
 
       //Act
       const httpResponse = await chai
         .request(app)
-        .patch('/confirm')
+        .patch("/confirm")
         .send(httpRequestBody);
 
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.NOT_FOUND);
-      expect(httpResponse.body.error_code).to.equal('MEASURE_NOT_FOUND');
+      expect(httpResponse.body.error_code).to.equal("MEASURE_NOT_FOUND");
       expect(httpResponse.body.error_description)
         .to.equal("Leitura não encontrada");
-    })
-    it('ao receber medição já confirmada, retorne um erro', async function () {
+    });
+    it("ao receber medição já confirmada, retorne um erro", async function () {
       // Arrange
       const httpRequestBody = mockMeasure.measureConfirmValid;
-      sinon.stub(MeasureService.prototype, 'confirmMeasure').throws(
-        new DoubleReportException('CONFIRMATION_DUPLICATE', "Leitura do mês já realizada"));
+      sinon.stub(MeasureService.prototype, "confirmMeasure").throws(
+        new DoubleReportException("CONFIRMATION_DUPLICATE", "Leitura do mês já realizada"));
 
       //Act
       const httpResponse = await chai
         .request(app)
-        .patch('/confirm')
+        .patch("/confirm")
         .send(httpRequestBody);
 
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.CONFLICT);
-      expect(httpResponse.body.error_code).to.equal('CONFIRMATION_DUPLICATE');
+      expect(httpResponse.body.error_code).to.equal("CONFIRMATION_DUPLICATE");
       expect(httpResponse.body.error_description)
         .to.equal("Leitura do mês já realizada");
-    })
+    });
 
-    it('ao receber dados corretos para confirmação, retorna status de sucesso', async function () {
+    it("ao receber dados corretos para confirmação, retorna status de sucesso", async function () {
       // Arrange
       const httpRequestBody = mockMeasure.measureConfirmValid;
-      sinon.stub(MeasureService.prototype, 'confirmMeasure')
-        .resolves({ status: 'SUCCESSFUL', message: 'ok' });
+      sinon.stub(MeasureService.prototype, "confirmMeasure")
+        .resolves({ status: "SUCCESSFUL", message: "ok" });
     
       //Act
       const httpResponse = await chai
         .request(app)
-        .patch('/confirm')
+        .patch("/confirm")
         .send(httpRequestBody);
 
       //Assert  
@@ -267,133 +266,131 @@ describe('PATCH /confirm', function () {
       expect(httpResponse.body).to.deep.equal({
         success: true
       });
-    })
-  })
+    });
+  });
 
-  describe('Testes de service', async function () {
+  describe("Testes de service", async function () {
     const measureService = new MeasureService();
 
-    it('ao verificar a inexistência da medição, lança exceção de MEASURE_NOT_FOUND',
+    it("ao verificar a inexistência da medição, lança exceção de MEASURE_NOT_FOUND",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findMeasureByUuid').resolves(undefined);
+        sinon.stub(MeasureModel.prototype, "findMeasureByUuid").resolves(undefined);
 
         //Act
         //Assert  
         await expect(measureService
           .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary))
-          .to.be.rejectedWith(NotFoundException)
-      })
+          .to.be.rejectedWith(NotFoundException);
+      });
       
-    it('ao verificar a inexistência da medição, lança exceção de CONFIRMATION_DUPLICATE',
+    it("ao verificar a inexistência da medição, lança exceção de CONFIRMATION_DUPLICATE",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findMeasureByUuid').resolves({ hasConfirmed: true });
+        sinon.stub(MeasureModel.prototype, "findMeasureByUuid").resolves({ hasConfirmed: true });
 
         //Act
         //Assert  
         await expect(measureService
           .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary))
-          .to.be.rejectedWith(DoubleReportException)
-      })
-
-    it('ao verificar a correção dos dados, retorna status de SUCCESSFUL',
+          .to.be.rejectedWith(DoubleReportException);
+      });
+    it("ao verificar a correção dos dados, retorna status de SUCCESSFUL",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findMeasureByUuid').resolves({ hasConfirmed: false });
-        sinon.stub(MeasureModel.prototype, 'confirmMeasure').resolves(undefined);
+        sinon.stub(MeasureModel.prototype, "findMeasureByUuid").resolves({ hasConfirmed: false });
+        sinon.stub(MeasureModel.prototype, "confirmMeasure").resolves(undefined);
         //Act
         const serviceResponse = await measureService
-          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary)
+          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary);
 
         //Assert  
-        expect(serviceResponse.status).to.equal('SUCCESSFUL');
-        expect(serviceResponse.message).to.equal('ok');
-      })
-  })
-})
+        expect(serviceResponse.status).to.equal("SUCCESSFUL");
+        expect(serviceResponse.message).to.equal("ok");
+      });
+  });
+});
 
-describe('GET /customer_code/list', function () {
+describe("GET /customer_code/list", function () {
   beforeEach(function () {
     sinon.restore();
   });
   const customerCode = "d1d21ce1-9020-4041-9502-7dd2b4e29220";
 
-  describe('Testes de middlewares', function () {
-    it('ao receber uma requisição com query parameter incorreto, retorne um erro',
+  describe("Testes de middlewares", function () {
+    it("ao receber uma requisição com query parameter incorreto, retorne um erro",
       async function () {
         //Act
         const httpResponse = await chai
           .request(app)
-          .get(`/${customerCode}/list?measure_type=xicara`)
+          .get(`/${customerCode}/list?measure_type=xicara`);
 
         //Assert
         expect(httpResponse.status).to.equal(httpStatus.BAD_REQUEST);
         expect(httpResponse.body.error_code).to.equal("INVALID_TYPE");
         expect(httpResponse.body.error_description)
           .to.equal("Tipo de medição não permitida");
-      })
-  })
-  describe('Testes de controller', function () {
-    it('ao receber customer_code sem medição cadastrada, retorne um erro', async function () {
-    // Arrange
-      sinon.stub(MeasureService.prototype, 'listMeasures')
-        .throwsException(new NotFoundException('MEASURES_NOT_FOUND', "Nenhuma leitura encontrada"))
+      });
+  });
+  describe("Testes de controller", function () {
+    it("ao receber customer_code sem medição cadastrada, retorne um erro", async function () {
+      // Arrange
+      sinon.stub(MeasureService.prototype, "listMeasures")
+        .throwsException(new NotFoundException("MEASURES_NOT_FOUND", "Nenhuma leitura encontrada"));
 
       //Act
       const httpResponse = await chai
         .request(app)
-        .get(`/${customerCode}/list`)
+        .get(`/${customerCode}/list`);
 
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.NOT_FOUND);
-      expect(httpResponse.body.error_code).to.equal('MEASURES_NOT_FOUND');
+      expect(httpResponse.body.error_code).to.equal("MEASURES_NOT_FOUND");
       expect(httpResponse.body.error_description)
         .to.equal("Nenhuma leitura encontrada");
-    })
-    it('ao receber dados corretos, retorne um status de sucessso', async function () {
-    // Arrange
-      sinon.stub(MeasureService.prototype, 'listMeasures').resolves({
-        status: 'SUCCESSFUL', message: mockMeasure.listMeasures
+    });
+    it("ao receber dados corretos, retorne um status de sucessso", async function () {
+      // Arrange
+      sinon.stub(MeasureService.prototype, "listMeasures").resolves({
+        status: "SUCCESSFUL", message: mockMeasure.listMeasures
       });
 
       //Act
       const httpResponse = await chai
         .request(app)
-        .get("/d1d21ce1-9020-4041-9502-7dd2b4e29220/list?measure_type=gAs")
+        .get("/d1d21ce1-9020-4041-9502-7dd2b4e29220/list?measure_type=gAs");
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.OK);
-      expect(httpResponse.body).to.deep.equal(mockMeasure.objectResponse)
-    })
-  })
+      expect(httpResponse.body).to.deep.equal(mockMeasure.objectResponse);
+    });
+  });
 
-  describe('Testes de service', async function () {
+  describe("Testes de service", async function () {
     const measureService = new MeasureService();
 
-    it('ao verificar a inexistência da medição, lança exceção de MEASURES_NOT_FOUND',
+    it("ao verificar a inexistência da medição, lança exceção de MEASURES_NOT_FOUND",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findAllMeasures').resolves(undefined);
+        sinon.stub(MeasureModel.prototype, "findAllMeasures").resolves(undefined);
 
         //Act
         //Assert 
         await expect(measureService
           .listMeasures(customerCode, "GAS"))
-          .to.be.rejectedWith(NotFoundException)
-      })
+          .to.be.rejectedWith(NotFoundException);
+      });
 
-    it('ao verificar a existência das medições, retorna status de SUCCESSFUL',
+    it("ao verificar a existência das medições, retorna status de SUCCESSFUL",
       async function () {
         // Arrange
-        sinon.stub(MeasureModel.prototype, 'findAllMeasures').resolves(mockMeasure.listMeasures);
+        sinon.stub(MeasureModel.prototype, "findAllMeasures").resolves(mockMeasure.listMeasures);
 
         //Act
         const serviceResponse = await measureService
-          .listMeasures(customerCode, "GAS")
+          .listMeasures(customerCode, "GAS");
 
         //Assert  
-        expect(serviceResponse.status).to.equal('SUCCESSFUL');
-      })
-  })
-})
-
+        expect(serviceResponse.status).to.equal("SUCCESSFUL");
+      });
+  });
+});
