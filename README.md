@@ -8,7 +8,7 @@ APISHOPPER é uma API desenvolvida para gerenciar medições de clientes em dife
 - **TypeScript**: Superconjunto de JavaScript que adiciona tipagem estática ao código.
 - **Express.js**: Framework web minimalista para Node.js.
 - **Prisma**: ORM que facilita o acesso ao banco de dados.
-- **SQLite**: Banco de dados utilizado durante o desenvolvimento.
+- **Mysql**: Banco de dados utilizado durante o desenvolvimento.
 - **ESLint**: Ferramenta de linting para manter o código limpo e padronizado.
 - **Jest**: Framework de testes utilizado para garantir a qualidade do código.
 - **Mocha**: Utilizado para testes adicionais.
