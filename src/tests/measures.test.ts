@@ -12,6 +12,8 @@ import { IMeasure } from '../interfaces/IMeasure';
 import * as imageUtils from '../utils/image.utils'
 import * as googleApi from '../utils/gemini.utils'
 import { IMeasureSummary } from '../interfaces/ICreateMeasure';
+import DoubleReportException from '../exceptions/DoubleReportException';
+import NotFoundException from '../exceptions/NotFoundException';
 
 chai.use(chaisAsPromised);
 chai.use(chaiHttp);
@@ -95,16 +97,15 @@ describe('POST /upload', function () {
     it('ao receber medição já cadastrada, retorne um erro', async function () {
     // Arrange
       const httpRequestBody = mockMeasure.validMeasure;
-      sinon.stub(MeasureService.prototype, 'createMeasure').resolves({
-        status: 'DOUBLE_REPORT', message: "Leitura do mês já realizada"
-      });
+      sinon.stub(MeasureService.prototype, 'createMeasure')
+        .throws(new DoubleReportException('DOUBLE_REPORT', "Leitura do mês já realizada"))
     
       //Act
       const httpResponse = await chai
         .request(app)
         .post('/upload')
         .send(httpRequestBody);
-        
+  
       //Assert  
       expect(httpResponse.status).to.equal(httpStatus.CONFLICT);
       expect(httpResponse.body.error_code).to.equal('DOUBLE_REPORT');
@@ -138,18 +139,15 @@ describe('POST /upload', function () {
     const measureService = new MeasureService();
     const value = 292;
     const path = "d1d21ce1-9020-4041-9502-7dd2b4e29220_WATER_1724876616987.png";
-    it('ao verificar a existência medição para o mesmo período, retorna status de DOUBLE_REPORT',
+    it('ao verificar a existência medição para o mesmo período, lança uma exceção de DOUBLE_REPORT',
       async function () {
         // Arrange
         sinon.stub(MeasureModel.prototype, 'findAllByCode').resolves(mockMeasure.measureSaveds);
 
         //Act
-        const serviceResponse = await measureService
-          .createMeasure(mockMeasure.validMeasureCamelCase as IMeasure)
-
         //Assert  
-        expect(serviceResponse.status).to.equal('DOUBLE_REPORT');
-        expect(serviceResponse.message).to.equal("Leitura do mês já realizada");
+        await expect(measureService.createMeasure(mockMeasure.validMeasureCamelCase as IMeasure))
+          .to.be.rejectedWith(DoubleReportException)
       })
       
     it('quando os dados são processados corretamente, retorna status de SUCCESSFUL',
@@ -218,9 +216,8 @@ describe('PATCH /confirm', function () {
     it('ao receber medição não cadastrada para confirmação, retorne um erro', async function () {
     // Arrange
       const httpRequestBody = mockMeasure.measureConfirmValid;
-      sinon.stub(MeasureService.prototype, 'confirmMeasure').resolves({
-        status: 'MEASURE_NOT_FOUND', message: "Leitura não encontrada"
-      });
+      sinon.stub(MeasureService.prototype, 'confirmMeasure').throws(
+        new NotFoundException('MEASURE_NOT_FOUND', "Leitura não encontrada"));
 
       //Act
       const httpResponse = await chai
@@ -237,9 +234,8 @@ describe('PATCH /confirm', function () {
     it('ao receber medição já confirmada, retorne um erro', async function () {
       // Arrange
       const httpRequestBody = mockMeasure.measureConfirmValid;
-      sinon.stub(MeasureService.prototype, 'confirmMeasure').resolves({
-        status: 'CONFIRMATION_DUPLICATE', message: "Leitura do mês já realizada"
-      });
+      sinon.stub(MeasureService.prototype, 'confirmMeasure').throws(
+        new DoubleReportException('CONFIRMATION_DUPLICATE', "Leitura do mês já realizada"));
 
       //Act
       const httpResponse = await chai
@@ -277,32 +273,28 @@ describe('PATCH /confirm', function () {
   describe('Testes de service', async function () {
     const measureService = new MeasureService();
 
-    it('ao verificar a inexistência da medição, retorna status de MEASURE_NOT_FOUND',
+    it('ao verificar a inexistência da medição, lança exceção de MEASURE_NOT_FOUND',
       async function () {
         // Arrange
         sinon.stub(MeasureModel.prototype, 'findMeasureByUuid').resolves(undefined);
 
         //Act
-        const serviceResponse = await measureService
-          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary)
-
         //Assert  
-        expect(serviceResponse.status).to.equal('MEASURE_NOT_FOUND');
-        expect(serviceResponse.message).to.equal("Leitura não encontrada");
+        await expect(measureService
+          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary))
+          .to.be.rejectedWith(NotFoundException)
       })
       
-    it('ao verificar a inexistência da medição, retorna status de MEASURE_NOT_FOUND',
+    it('ao verificar a inexistência da medição, lança exceção de CONFIRMATION_DUPLICATE',
       async function () {
         // Arrange
         sinon.stub(MeasureModel.prototype, 'findMeasureByUuid').resolves({ hasConfirmed: true });
 
         //Act
-        const serviceResponse = await measureService
-          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary)
-
         //Assert  
-        expect(serviceResponse.status).to.equal('CONFIRMATION_DUPLICATE');
-        expect(serviceResponse.message).to.equal("Leitura do mês já realizada");
+        await expect(measureService
+          .confirmMeasure(mockMeasure.measureConfirmValidCamelCase as IMeasureSummary))
+          .to.be.rejectedWith(DoubleReportException)
       })
 
     it('ao verificar a correção dos dados, retorna status de SUCCESSFUL',
@@ -345,9 +337,8 @@ describe('GET /customer_code/list', function () {
   describe('Testes de controller', function () {
     it('ao receber customer_code sem medição cadastrada, retorne um erro', async function () {
     // Arrange
-      sinon.stub(MeasureService.prototype, 'listMeasures').resolves({
-        status: 'MEASURES_NOT_FOUND', message: "Nenhuma leitura encontrada"
-      });
+      sinon.stub(MeasureService.prototype, 'listMeasures')
+        .throwsException(new NotFoundException('MEASURES_NOT_FOUND', "Nenhuma leitura encontrada"))
 
       //Act
       const httpResponse = await chai
@@ -379,18 +370,16 @@ describe('GET /customer_code/list', function () {
   describe('Testes de service', async function () {
     const measureService = new MeasureService();
 
-    it('ao verificar a inexistência da medição, retorna status de MEASURES_NOT_FOUND',
+    it('ao verificar a inexistência da medição, lança exceção de MEASURES_NOT_FOUND',
       async function () {
         // Arrange
         sinon.stub(MeasureModel.prototype, 'findAllMeasures').resolves(undefined);
 
         //Act
-        const serviceResponse = await measureService
-          .listMeasures(customerCode, "GAS")
-
-        //Assert  
-        expect(serviceResponse.status).to.equal('MEASURES_NOT_FOUND');
-        expect(serviceResponse.message).to.equal("Nenhuma leitura encontrada");
+        //Assert 
+        await expect(measureService
+          .listMeasures(customerCode, "GAS"))
+          .to.be.rejectedWith(NotFoundException)
       })
 
     it('ao verificar a existência das medições, retorna status de SUCCESSFUL',
