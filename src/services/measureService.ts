@@ -56,12 +56,12 @@ export default class MeasureService {
 
   public async listMeasures(
     code: string,
-    type: string
+    type: string = ""
   ): Promise<ServiceResponse<IMeasureResponseSummary[]>>
   {
     const allMeasures = await this.measureModel.findAllMeasures(code, type);
 
-    if (!allMeasures) {
+    if (!allMeasures || allMeasures.length === 0) {
       throw new NotFoundException("MEASURES_NOT_FOUND", "Nenhuma leitura encontrada");
     }
 
