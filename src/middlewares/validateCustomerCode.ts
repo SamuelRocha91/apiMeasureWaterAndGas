@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import InvalidDataException from "../exceptions/InvalidDataException";
 
-function validateCustomerCode(req: Request, res: Response, next: NextFunction): Response | void {
+function validateCustomerCode(req: Request, _res: Response, next: NextFunction): Response | void {
   try {
     const { customer_code: customerCode } = req.body;
 
