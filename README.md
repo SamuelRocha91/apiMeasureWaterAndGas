@@ -135,4 +135,3 @@ async function checkMeasureValue(mime: string, base64: string): Promise<number> 
 ```
 
 Essa função é usada para garantir que o valor da medição seja extraído com precisão a partir da imagem fornecida.
-```
