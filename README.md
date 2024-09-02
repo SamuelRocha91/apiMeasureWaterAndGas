@@ -13,6 +13,8 @@ Trata-se de uma API desenvolvida para gerenciar medições de clientes em difere
 - **Jest**: Framework de testes utilizado para garantir a qualidade do código.
 - **Mocha**: Utilizado para testes adicionais.
 - **Google Generative AI**: Integrado para analisar imagens de medidores e extrair valores numéricos das medições.
+- **Swagger**: Integrado para gerar uma documentação para as rotas.
+
 
 ## Estrutura do Projeto
 
@@ -20,7 +22,11 @@ O projeto segue uma estrutura modular para facilitar a manutenção e a escalabi
 
 - `src/`: Contém o código-fonte da aplicação.
   - `controllers/`: Lógica de controle, onde as requisições são processadas.
+  - `db/`: Gera uma instância prisma de conexão com o banco de dados para toda a aplicação.
+  - `exceptions/`: Cria exceções customizadas pra lidar com erros durante a execução da aplicação.
+  - `ìnterfaces/`: Cria interfaces e tipos para lidar com parâmetros e retornos de função.
   - `middlewares/`: Middlewares para validações e tratamentos.
+  - `models/`: Lógica de conexão com o banco de dados.
   - `services/`: Camada de serviços que interage com o Prisma e realiza operações de negócios.
   - `routes/`: Definição das rotas da API.
   - `utils/`: Funções utilitárias, como manipulação de imagens e interação com a API da Google Generative AI.
@@ -45,7 +51,7 @@ O projeto segue uma estrutura modular para facilitar a manutenção e a escalabi
 1. Clone o repositório:
     ```bash
     git clone https://github.com/seu-usuario/apiShopper.git
-    cd apiShopper
+    cd apiMeasureWaterAndGas
     ```
 
 2. Instale as dependências:
