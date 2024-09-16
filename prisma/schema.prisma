@@ -15,20 +15,32 @@ model Measure {
   measureType      String
   measureDatetime  DateTime
   measureValue     Int
-  customerCode     String
   image            Image?
+  customerCode     String
   hasConfirmed     Boolean  @default(false)
   updatedAt        DateTime @updatedAt
   createdAt        DateTime @default(now())
+  customer         Customer @relation(fields: [customerCode], references: [customerUuid])
 }
 
 model Image {
-  id        String   @id @default(uuid())
-  imagePath String?
-  mimeType  String
-  size      Int
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
-  measureId String   @unique
-  measure   Measure  @relation(fields: [measureId], references: [measureUuid])
+  imageUuid       String   @id @default(uuid())
+  imagePath       String?
+  mimeType        String
+  size            Int
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  measureId       String   @unique
+  measure         Measure  @relation(fields: [measureId], references: [measureUuid])
+}
+
+model Customer {
+    customerUuid  String   @id @default(uuid())
+    name          String
+    email         String
+    cep           String
+    city          String
+    State         String
+    number        Int
+    measure       Measure[]
 }
