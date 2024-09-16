@@ -115,6 +115,77 @@
                 }
             }
         },
+        "/customer": {
+            "post":{
+                "summary":"Cadastra usuário",
+                "description": "Cadastra um novo usuário destinatário das medições.",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                         "properties":{
+                            "name": {
+                                "type": "string"
+                            },
+                            "city": {
+                                "type":"string"
+                            },
+                            "state": {
+                                "type":"string"
+                            },
+                            "email": {
+                                "type":"string"
+                            },
+                            "number": {
+                                "type":"number"
+                            },
+                            "cep": {
+                                "type":"number"
+                            }
+                         }
+                      }
+                    }
+                  },
+                "responses":{
+                    "201": {
+                        "description": "Customer criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "customerCode": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro na validação dos dados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              }
+            }
+        },
         "/confirm": {
             "patch": {
                 "summary": "Confirmar Medição",
@@ -273,6 +344,24 @@
                     },
                     "400": {
                         "description": "Tipo de medição não permitida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error_code": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Customer não encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {

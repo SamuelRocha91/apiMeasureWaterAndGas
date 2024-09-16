@@ -22,6 +22,7 @@ export default class MeasureService {
 
   public async createMeasure(measure: IMeasure): Promise<ServiceResponse<ICreateMeasure>> {
     const customer = await this.customerModel.findById(measure.customerCode);
+    
     if (!customer) {
       throw new CustomerNotFoundException("NOT_FOUND", "Customer não encontrado");
     }
@@ -36,7 +37,7 @@ export default class MeasureService {
       measureMonth.measureDatetime.getMonth() === measure.measureDatetime.getMonth())) {
       throw new DoubleReportException("DOUBLE_REPORT", "Leitura do mês já realizada");
     }
-    
+
     const mime = extractMimeType(measure.image);
     const size = extractSize(measure.image);
     const path = await saveBase64Image(measure.image, measure.customerCode, measure.measureType);
