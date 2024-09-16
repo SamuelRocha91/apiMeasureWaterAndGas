@@ -14,4 +14,12 @@ export default class CustomerModel {
        
     return data.customerUuid;
   }
+
+  async findById(customerUuid: string) {
+    return await this.prismaClient.customer.findFirst({
+      where: {
+        customerUuid: customerUuid
+      }
+    });
+  }
 }

@@ -11,13 +11,21 @@ import { extractMimeType, extractSize, saveBase64Image } from "../utils/image.ut
 import checkMeasureValue from "../utils/gemini.utils";
 import DoubleReportException from "../exceptions/DoubleReportException";
 import NotFoundException from "../exceptions/NotFoundException";
+import CustomerModel from "../models/customerModel";
+import CustomerNotFoundException from "../exceptions/CustomerNotFoundException";
 
 export default class MeasureService {
   constructor(
-        private measureModel = new MeasureModel()
+    private measureModel = new MeasureModel(),
+    private customerModel = new CustomerModel()
   ) { }
 
   public async createMeasure(measure: IMeasure): Promise<ServiceResponse<ICreateMeasure>> {
+    const customer = await this.customerModel.findById(measure.customerCode);
+    if (!customer) {
+      throw new CustomerNotFoundException("NOT_FOUND", "Customer não encontrado");
+    }
+
     const allMeasure = await this.measureModel.findAllByCode(
       measure.customerCode,
       measure.measureType
