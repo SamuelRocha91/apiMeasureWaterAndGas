@@ -30,13 +30,13 @@ export default class MeasureService {
       measure.customerCode,
       measure.measureType
     );
+
     if (allMeasure.some((measureMonth: IMeasureDate) =>
       measureMonth.measureDatetime.getFullYear() === measure.measureDatetime.getFullYear() &&
       measureMonth.measureDatetime.getMonth() === measure.measureDatetime.getMonth())) {
-    
       throw new DoubleReportException("DOUBLE_REPORT", "Leitura do mês já realizada");
-    
     }
+    
     const mime = extractMimeType(measure.image);
     const size = extractSize(measure.image);
     const path = await saveBase64Image(measure.image, measure.customerCode, measure.measureType);

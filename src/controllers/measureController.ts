@@ -3,6 +3,8 @@ import MeasureService from "../services/measureService";
 import { getImageUrl } from "../utils/image.utils";
 import { IMeasureAll } from "../interfaces/IMeasure";
 import { httpStatus } from "../utils/httpStatus.utils";
+import { ServiceResponse } from "../interfaces/IServiceResponse";
+import { IMeasureResponseSummary } from "../interfaces/ICreateMeasure";
 
 export default class MeasureController {
 
@@ -66,30 +68,38 @@ export default class MeasureController {
         response = await this.measureService.listMeasures(customerCode);
       }
   
-      const objectResponse: {
-        customer_code: string;
-        measure: IMeasureAll[];
-      } = {
-        customer_code: customerCode,
-        measure: []
-      };
-      objectResponse.customer_code = customerCode;
-      if (Array.isArray(response.message)) {
-        response.message.forEach((item) => {
-          const newMeasure = {
-            measure_uuid: item.measureUuid,
-            measure_type: item.measureType,
-            measure_datetime: new Date(item.measureDatetime),
-            has_confirmed: item.hasConfirmed,
-            image_url: getImageUrl(item.image?.imagePath || "")
-          };
-          objectResponse.measure.push(newMeasure);
-        });
-      }
+      const objectResponse = this.createResponse(response, customerCode);
 
       return res.status(httpStatus.OK).json(objectResponse);
     } catch (error) {
       return next(error);
     }
+  }
+
+  private createResponse(
+    response: ServiceResponse<IMeasureResponseSummary[]>,
+    customerCode: string
+  ) {
+    const objectResponse: {
+      customer_code: string;
+      measure: IMeasureAll[];
+    } = {
+      customer_code: customerCode,
+      measure: []
+    };
+    objectResponse.customer_code = customerCode;
+    if (Array.isArray(response.message)) {
+      response.message.forEach((item) => {
+        const newMeasure = {
+          measure_uuid: item.measureUuid,
+          measure_type: item.measureType,
+          measure_datetime: new Date(item.measureDatetime),
+          has_confirmed: item.hasConfirmed,
+          image_url: getImageUrl(item.image?.imagePath || "")
+        };
+        objectResponse.measure.push(newMeasure);
+      });
+    }
+    return objectResponse;
   }
 }
