@@ -40,7 +40,7 @@ model Customer {
     email         String   @unique
     cep           String
     city          String
-    State         String
-    number        Int
+    state         String
+    number        Int?
     measure       Measure[]
 }

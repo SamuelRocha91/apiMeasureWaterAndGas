@@ -16,7 +16,7 @@ export default class CustomerController {
       const response = await this.customerService.create(data);
       return res.status(httpStatus.CREATED).json(
         {
-          customerCode: response.customerUuid
+          customerCode: response.message
         }
       );
     } catch (error) {
