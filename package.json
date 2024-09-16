@@ -9,7 +9,7 @@
     "build": "tsc",
     "lint": "eslint . --ignore-pattern 'node_modules/**/*' --ext .ts",
     "lint:fix": "eslint . --ignore-pattern 'node_modules/**/*' --ext .ts --fix",
-    "prisma:generate": "npx prisma generate --schema=src/db/schema.prisma",
+    "prisma:generate": "npx prisma generate --schema=prisma/schema.prisma",
     "prisma:migrate": "npx prisma migrate dev --schema=src/db/schema.prisma --name init",
     "prisma:seed": "ts-node src/db/seeds.ts",
     "docker": "npm install && npx prisma generate --schema=prisma/schema.prisma && npx prisma migrate dev --schema=prisma/schema.prisma --name init && nodemon src/index.ts",

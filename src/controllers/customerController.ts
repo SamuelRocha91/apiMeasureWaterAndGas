@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { httpStatus } from "../utils/httpStatus.utils";
+import CustomerService from "../services/customerService";
 
 export default class CustomerController {
 

@@ -1,4 +1,5 @@
 import { ServiceResponse } from "../interfaces/IServiceResponse";
+import CustomerModel from "../models/customerModel";
 
 export default class CustomerService {
   constructor(
