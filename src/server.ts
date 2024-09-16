@@ -7,6 +7,7 @@ import cors from "cors";
 import measuresRouter from "./routes/measureRoutes";
 import confirmMeasuresRouter from "./routes/confirmMeasureRoutes";
 import listMeasuresRouter from "./routes/listMeasuresRouter";
+import customerRouter from "./routes/customerRoutes";
 import ErrorHandler from "./middlewares/errorHandler";
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(express.json({ limit: "10mb" }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/:customerCode/list", listMeasuresRouter);
+
+app.use("/customer", customerRouter);
 
 app.use("/confirm", confirmMeasuresRouter);
 

@@ -7,6 +7,7 @@ import mockMeasure from "./mocks/measures.mock";
 import { httpStatus } from "../utils/httpStatus.utils";
 import MeasureService from "../services/measureService";
 import MeasureModel from "../models/measureModel";
+import CustomerModel from "../models/customerModel";
 import { getImageUrl } from "../utils/image.utils";
 import { IMeasure } from "../interfaces/IMeasure";
 import * as imageUtils from "../utils/image.utils";
@@ -142,6 +143,13 @@ describe("POST /upload", function () {
     it("ao verificar a existência medição para o mesmo período, lança uma exceção de DOUBLE_REPORT",
       async function () {
         // Arrange
+        sinon.stub(CustomerModel.prototype, "findById")
+          .resolves(
+            {
+              customerUuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220", name: "zéZ",
+              email: "sam@example.com",
+              cep: "40415-345", city: "Salvador", state: "Bahia", number: 27
+            });
         sinon.stub(MeasureModel.prototype, "findAllByCode").resolves(mockMeasure.measureSaveds);
 
         //Act
@@ -154,6 +162,13 @@ describe("POST /upload", function () {
       async function () {
         // Arrange
         sinon.stub(MeasureModel.prototype, "findAllByCode").resolves(mockMeasure.measureSaveds);
+        sinon.stub(CustomerModel.prototype, "findById")
+          .resolves(
+            {
+              customerUuid: "d1d21ce1-9020-4041-9502-7dd2b4e29220", name: "zéZ",
+              email: "sam@example.com",
+              cep: "40415-345", city: "Salvador", state: "Bahia", number: 27
+            });
         sinon.stub(imageUtils, "extractMimeType").resolves("image/png");
         sinon.stub(imageUtils, "extractSize").resolves(1);
         sinon.stub(imageUtils, "saveBase64Image")
@@ -170,6 +185,7 @@ describe("POST /upload", function () {
       });
   });
 });
+
 describe("PATCH /confirm", function () {
   beforeEach(function () {
     sinon.restore();
@@ -332,6 +348,7 @@ describe("GET /customer_code/list", function () {
           .to.equal("Tipo de medição não permitida");
       });
   });
+
   describe("Testes de controller", function () {
     it("ao receber customer_code sem medição cadastrada, retorne um erro", async function () {
       // Arrange
