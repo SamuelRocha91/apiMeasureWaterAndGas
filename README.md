@@ -2,8 +2,14 @@
 
 Trata-se de uma API desenvolvida para gerenciar medições de clientes em diferentes tipos de serviços. A aplicação utiliza Node.js, TypeScript, Prisma, Express.js e outras tecnologias para oferecer um backend robusto e escalável.
 
+![Status: Em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Front-end React](https://github.com/SamuelRocha91/precisionReactApplication)
+
+
+
 ![Rodando backend com docker](./src/gifs/apiMeasure.gif)
 ![Requisição post pra criar customer](./src/images/postCustomer.png)
+
 
 
 ## Tecnologias Utilizadas
