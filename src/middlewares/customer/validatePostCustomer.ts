@@ -14,10 +14,9 @@ export const validatePostCustomer = (
       city,
       state
     } = req.body;
-
     if (!name || !email || !cep || !city || !state) {
       throw new InvalidDataException(
-        "INVALID_DATA", "Ausência de dados obeigatórios na requisição"
+        "INVALID_DATA", "Ausência de dados obrigatórios na requisição"
       );
     }
     return next();
