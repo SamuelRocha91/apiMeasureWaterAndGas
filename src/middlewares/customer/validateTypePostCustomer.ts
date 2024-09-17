@@ -23,7 +23,7 @@ export const validateTypePostCustomer = (
       typeof state !== "string"
     ) {
       throw new InvalidDataException(
-        "INVALID_DATA", "Tipo dados obrigatórios na requisição são inválidos"
+        "INVALID_DATA", "Tipo de dados obrigatórios na requisição são inválidos"
       );
     }
     return next();

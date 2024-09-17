@@ -1,5 +1,15 @@
 # API de medição de contas de gás e água
 
+<h2>🌐</h2>
+<ul>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md" target="_blank">Português</a></li>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md" target="_blank">Español</a></li>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md" target="_blank">English</a></li>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md" target="_blank">Русский</a></li>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md" target="_blank">中文</a></li>
+  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md" target="_blank">العربية</a></li>
+</ul>
+
 Trata-se de uma API desenvolvida para gerenciar medições de clientes em diferentes tipos de serviços. A aplicação utiliza Node.js, TypeScript, Prisma, Express.js e outras tecnologias para oferecer um backend robusto e escalável.
 
 ![Status: Em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
