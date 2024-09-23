@@ -7,7 +7,7 @@
 ![开发状态](https://img.shields.io/badge/status-%E5%BC%80%E5%8F%91%E4%B8%AD-yellow)
 
 ## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) 
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ch.md) 
 
 ![使用 Docker 启动后端](./src/gifs/apiMeasure.gif)
 ![创建客户的 POST 请求](./src/images/postCustomer.png)

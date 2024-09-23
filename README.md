@@ -7,7 +7,7 @@ Trata-se de uma API desenvolvida para gerenciar medições de clientes em difere
 ![Status: Em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 
 ## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) - Interface de cadastro de medições de gás e de água
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication) - Interface de cadastro de medições de gás e de água
 
 
 ![Rodando backend com docker](./src/gifs/apiMeasure.gif)
