@@ -1,21 +1,13 @@
-# Water and Gas Billing Measurement API
+# <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Full Stack Projects" width="52" height="40" />Water and Gas Billing Measurement API<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Java Projects Logo" width="52" height="40" />
 
-<h2>🌐</h2>
-<ul>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md" target="_blank">Portuguese</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md" target="_blank">Spanish</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md" target="_blank">English</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md" target="_blank">Russian</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md" target="_blank">Chinese</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md" target="_blank">Arabic</a></li>
-</ul>
+## 🌐 [![Português](https://img.shields.io/badge/Português-green)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md) [![Español](https://img.shields.io/badge/Español-yellow)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md) [![English](https://img.shields.io/badge/English-blue)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md) [![Русский](https://img.shields.io/badge/Русский-lightgrey)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md) [![中文](https://img.shields.io/badge/中文-red)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md) [![العربية](https://img.shields.io/badge/العربية-orange)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md)
 
 This API is developed to manage customer measurements across different types of services. The application uses Node.js, TypeScript, Prisma, Express.js, and other technologies to offer a robust and scalable backend.
 
 ![Status: In Development](https://img.shields.io/badge/status-in%20development-yellow)
 
-<a href="https://github.com/SamuelRocha91/precisionReactApplication" target="_blank">Measurement Application React Frontend</a>
-
+## FrontEnd
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) - Interface de cadastro de medições de gás e de água
 
 ![Running backend with Docker](./src/gifs/apiMeasure.gif)
 ![Post request to create customer](./src/images/postCustomer.png)
@@ -161,3 +153,12 @@ async function checkMeasureValue(mime: string, base64: string): Promise<number> 
 ```
 
 This function is used to ensure that the measurement value is accurately extracted from the provided image.
+
+## Other Projects
+
+- 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_en.md) 
+- 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_en.md) 
+- 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_en.md) 
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty/blob/main/README_en.md)
+
+  
