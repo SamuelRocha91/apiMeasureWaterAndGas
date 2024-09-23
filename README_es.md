@@ -5,7 +5,7 @@
 Esta es una API desarrollada para gestionar mediciones de clientes en diferentes tipos de servicios. La aplicación utiliza Node.js, TypeScript, Prisma, Express.js y otras tecnologías para ofrecer un backend robusto y escalable.
 
 ## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) 
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_es.md) 
 
 
 ![Ejecutando el backend con docker](./src/gifs/apiMeasure.gif)
@@ -157,4 +157,4 @@ Esta función se usa para asegurar que el valor de la medición sea extraído co
 - 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_es.md) 
 - 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_es.md) 
 - 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_es.md) 
-- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty/blob/main/README_es.md) 
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty) 
