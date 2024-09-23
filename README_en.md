@@ -7,7 +7,7 @@ This API is developed to manage customer measurements across different types of 
 ![Status: In Development](https://img.shields.io/badge/status-in%20development-yellow)
 
 ## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) - Interface de cadastro de medições de gás e de água
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_en.md) - Interface de cadastro de medições de gás e de água
 
 ![Running backend with Docker](./src/gifs/apiMeasure.gif)
 ![Post request to create customer](./src/images/postCustomer.png)
@@ -159,6 +159,6 @@ This function is used to ensure that the measurement value is accurately extract
 - 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_en.md) 
 - 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_en.md) 
 - 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_en.md) 
-- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty/blob/main/README_en.md)
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty)
 
   
