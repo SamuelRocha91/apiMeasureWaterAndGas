@@ -154,7 +154,7 @@ Esta función se usa para asegurar que el valor de la medición sea extraído co
 
 ## Otros Proyectos
 
-- 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back) 
-- 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy) 
-- 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application) 
-- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty) 
+- 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_es.md) 
+- 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_es.md) 
+- 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_es.md) 
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty/blob/main/README_es.md) 
