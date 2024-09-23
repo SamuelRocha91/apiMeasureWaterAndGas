@@ -7,7 +7,7 @@
 ![Статус: В разработке](https://img.shields.io/badge/status-%D0%B2%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5-yellow)
 
 ## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md)
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ru.md)
 
 ![Запуск бэкенда с использованием Docker](./src/gifs/apiMeasure.gif)
 ![POST-запрос для создания клиента](./src/images/postCustomer.png)
@@ -157,4 +157,4 @@ async function checkMeasureValue(mime: string, base64: string): Promise<number> 
 - 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_ru.md) 
 - 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_ru.md) 
 - 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_ru.md) 
-- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty/blob/main/README_ru.md) 
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty) 
