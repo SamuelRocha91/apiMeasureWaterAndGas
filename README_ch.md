@@ -1,20 +1,13 @@
-# 水气表读数管理 API
+# <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Full Stack Projects" width="52" height="40" />  水气表读数管理 API <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Java Projects Logo" width="52" height="40" />
 
-<h2>🌐</h2>
-<ul>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md" target="_blank">葡萄牙语</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md" target="_blank">西班牙语</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md" target="_blank">英语</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md" target="_blank">俄语</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md" target="_blank">中文</a></li>
-  <li><a href="https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md" target="_blank">阿拉伯语</a></li>
-</ul>
+## 🌐 [![Português](https://img.shields.io/badge/Português-green)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md) [![Español](https://img.shields.io/badge/Español-yellow)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md) [![English](https://img.shields.io/badge/English-blue)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md) [![Русский](https://img.shields.io/badge/Русский-lightgrey)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md) [![中文](https://img.shields.io/badge/中文-red)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md) [![العربية](https://img.shields.io/badge/العربية-orange)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md)
 
 此 API 用于管理客户不同服务的表读数。该应用程序使用 Node.js、TypeScript、Prisma、Express.js 等技术来构建一个强大且可扩展的后端。
 
 ![开发状态](https://img.shields.io/badge/status-%E5%BC%80%E5%8F%91%E4%B8%AD-yellow)
 
-<a href="https://github.com/SamuelRocha91/precisionReactApplication" target="_blank">水气表读数应用程序的 React 前端</a>
+## FrontEnd
+- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) 
 
 ![使用 Docker 启动后端](./src/gifs/apiMeasure.gif)
 ![创建客户的 POST 请求](./src/images/postCustomer.png)
@@ -157,3 +150,10 @@ async function checkMeasureValue(mime: string, base64: string): Promise<number> 
 ```
 
 此功能确保从提供的图像中准确提取表读数值。
+
+## 其他项目
+
+- 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back) 
+- 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy) 
+- 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application) 
+- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty) 
