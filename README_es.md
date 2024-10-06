@@ -6,13 +6,15 @@ Se trata de una API desarrollada para gestionar las mediciones de clientes en di
 
 ![Estado: En Desarrollo](https://img.shields.io/badge/status-en%20desarrollo-yellow)
 
+  ![Corriendo backend con docker](./src/gifs/apiMeasure.gif)
+  ![Solicitud POST para crear cliente](./src/images/postCustomer.png)
+
 <details>
   <summary><h2>📏 FrontEnd</h2></summary>
   
   - 📏 [Aplicación de Precisión en React](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ens.md) - Interfaz para el registro de mediciones de gas y agua
   
-  ![Corriendo backend con docker](./src/gifs/apiMeasure.gif)
-  ![Solicitud POST para crear cliente](./src/images/postCustomer.png)
+
 
 </details>
 
@@ -122,12 +124,6 @@ Se trata de una API desarrollada para gestionar las mediciones de clientes en di
 
 </details>
 
-<details>
-  <summary><h2>🤝 Contribución</h2></summary>
-
-  Siéntete libre de abrir issues o enviar pull requests. ¡Toda contribución es bienvenida!
-
-</details>
 
 <details>
   <summary><h2>📜 Scripts Disponibles</h2></summary>

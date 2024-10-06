@@ -6,13 +6,14 @@
 
 ![الحالة: قيد التطوير](https://img.shields.io/badge/status-%D9%82%D9%8A%D8%AF_%D8%A7%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1-yellow)
 
+  ![حالة واجهة برمجة التطبيقات](./src/gifs/apiMeasure.gif)
+  ![طلب POST لإنشاء عميل](./src/images/postCustomer.png)
+  
 <details>
   <summary><h2>📏 الواجهة الأمامية</h2></summary>
   
   - 📏 [تطبيق Precision (React)](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ar.md) - واجهة لقراءات عدادات المياه والكهرباء
   
-  ![حالة واجهة برمجة التطبيقات](./src/gifs/apiMeasure.gif)
-  ![طلب POST لإنشاء عميل](./src/images/postCustomer.png)
 
 </details>
 
@@ -119,13 +120,6 @@
   ```bash
   npm run test
   ```
-
-</details>
-
-<details>
-  <summary><h2>🤝 المساهمة</h2></summary>
-
-  لا تتردد في تقديم المشكلات أو بدء طلبات السحب. جميع المساهمات مرحب بها!
 
 </details>
 
