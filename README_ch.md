@@ -6,13 +6,14 @@
 
 ![状态：开发中](https://img.shields.io/badge/status-%E5%BC%80%E5%8F%91%E4%B8%AD-yellow)
 
+  ![API 运行情况](./src/gifs/apiMeasure.gif)
+  ![创建客户的 POST 请求](./src/images/postCustomer.png)
+
 <details>
   <summary><h2>📏 前端</h2></summary>
   
   - 📏 [Precision 应用程序 (React)](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ch.md) - 用于水电表读数的界面
   
-  ![API 运行情况](./src/gifs/apiMeasure.gif)
-  ![创建客户的 POST 请求](./src/images/postCustomer.png)
 
 </details>
 
@@ -119,13 +120,6 @@
   ```bash
   npm run test
   ```
-
-</details>
-
-<details>
-  <summary><h2>🤝 贡献</h2></summary>
-
-  请随时提交问题或发起拉取请求。欢迎任何贡献！
 
 </details>
 

@@ -6,13 +6,14 @@
 
 ![Статус: В Разработке](https://img.shields.io/badge/status-%D0%B2%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B5-yellow)
 
+  ![Работа бэкенда с Docker](./src/gifs/apiMeasure.gif)
+  ![POST-запрос для создания клиента](./src/images/postCustomer.png)
+
 <details>
   <summary><h2>📏 FrontEnd</h2></summary>
   
   - 📏 [Приложение Precision на React](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ru.md) - Интерфейс для учета показаний газа и воды
   
-  ![Работа бэкенда с Docker](./src/gifs/apiMeasure.gif)
-  ![POST-запрос для создания клиента](./src/images/postCustomer.png)
 
 </details>
 
@@ -122,12 +123,6 @@
 
 </details>
 
-<details>
-  <summary><h2>🤝 Вклад</h2></summary>
-
-  Не стесняйтесь открывать вопросы или отправлять пулл-реквесты. Все вклады приветствуются!
-
-</details>
 
 <details>
   <summary><h2>📜 Доступные скрипты</h2></summary>
