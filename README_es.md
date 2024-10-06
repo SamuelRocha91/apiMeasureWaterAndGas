@@ -1,160 +1,195 @@
-# <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Full Stack Projects" width="52" height="40" /> API de medición de cuentas de gas y agua <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTchGHKMA3VyA1ySh2ITWb0CIm_cnhF1cGvlQ&s" alt="Java Projects Logo" width="52" height="40" />  
+# <img src="https://cdn-icons-png.flaticon.com/128/83/83522.png" alt="Full Projects Logo" width="42" height="30" /> API de medición de cuentas de gas y agua <img src="https://cdn-icons-png.flaticon.com/128/83/83522.png" alt="Full Projects Logo" width="42" height="30" />
 
 ## 🌐 [![Português](https://img.shields.io/badge/Português-green)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README.md) [![Español](https://img.shields.io/badge/Español-yellow)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_es.md) [![English](https://img.shields.io/badge/English-blue)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_en.md) [![Русский](https://img.shields.io/badge/Русский-lightgrey)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ru.md) [![中文](https://img.shields.io/badge/中文-red)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ch.md) [![العربية](https://img.shields.io/badge/العربية-orange)](https://github.com/SamuelRocha91/apiMeasureWaterAndGas/blob/main/README_ar.md)
 
-Esta es una API desarrollada para gestionar mediciones de clientes en diferentes tipos de servicios. La aplicación utiliza Node.js, TypeScript, Prisma, Express.js y otras tecnologías para ofrecer un backend robusto y escalable.
+Se trata de una API desarrollada para gestionar las mediciones de clientes en diferentes tipos de servicios. La aplicación utiliza Node.js, TypeScript, Prisma, Express.js y otras tecnologías para ofrecer un backend robusto y escalable.
 
-## FrontEnd
-- 📏 [React Precision Application](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_es.md) 
+![Estado: En Desarrollo](https://img.shields.io/badge/status-en%20desarrollo-yellow)
 
+<details>
+  <summary><h2>📏 FrontEnd</h2></summary>
+  
+  - 📏 [Aplicación de Precisión en React](https://github.com/SamuelRocha91/precisionReactApplication/blob/main/README_ens.md) - Interfaz para el registro de mediciones de gas y agua
+  
+  ![Corriendo backend con docker](./src/gifs/apiMeasure.gif)
+  ![Solicitud POST para crear cliente](./src/images/postCustomer.png)
 
-![Ejecutando el backend con docker](./src/gifs/apiMeasure.gif)
-![Solicitud post para crear un cliente](./src/images/postCustomer.png)
+</details>
 
+<details>
+  <summary><h2>🛠️ Tecnologías Utilizadas</h2></summary>
 
+  - **Node.js**: Entorno de ejecución para JavaScript en el backend.
+  - **TypeScript**: Superconjunto de JavaScript que añade tipado estático al código.
+  - **Express.js**: Framework web minimalista para Node.js.
+  - **Prisma**: ORM que facilita el acceso a la base de datos.
+  - **MySQL**: Base de datos utilizada durante el desarrollo.
+  - **ESLint**: Herramienta de linting para mantener el código limpio y estandarizado.
+  - **Jest**: Framework de pruebas utilizado para garantizar la calidad del código.
+  - **Mocha**: Utilizado para pruebas adicionales.
+  - **Google Generative AI**: Integrado para analizar imágenes de medidores y extraer valores numéricos de las mediciones.
+  - **Swagger**: Integrado para generar documentación para las rutas.
 
-## Tecnologías Utilizadas
+</details>
 
-- **Node.js**: Entorno de ejecución para JavaScript en el backend.
-- **TypeScript**: Superconjunto de JavaScript que agrega tipado estático al código.
-- **Express.js**: Framework web minimalista para Node.js.
-- **Prisma**: ORM que facilita el acceso a la base de datos.
-- **Mysql**: Base de datos utilizada durante el desarrollo.
-- **ESLint**: Herramienta de linting para mantener el código limpio y estandarizado.
-- **Jest**: Framework de pruebas utilizado para asegurar la calidad del código.
-- **Mocha**: Utilizado para pruebas adicionales.
-- **Google Generative AI**: Integrado para analizar imágenes de medidores y extraer valores numéricos de las mediciones.
-- **Swagger**: Integrado para generar una documentación para las rutas.
+<details>
+  <summary><h2>📁 Estructura del Proyecto</h2></summary>
 
-## Estructura del Proyecto
+  El proyecto sigue una estructura modular para facilitar el mantenimiento y la escalabilidad. Las principales carpetas y archivos son:
 
-El proyecto sigue una estructura modular para facilitar el mantenimiento y la escalabilidad. Las principales carpetas y archivos son:
+  - `src/`: Contiene el código fuente de la aplicación.
+    - `controllers/`: Lógica de control, donde se procesan las solicitudes.
+    - `db/`: Genera una instancia de prisma para la conexión con la base de datos para toda la aplicación.
+    - `exceptions/`: Crea excepciones personalizadas para manejar errores durante la ejecución de la aplicación.
+    - `interfaces/`: Crea interfaces y tipos para manejar parámetros y retornos de funciones.
+    - `middlewares/`: Middlewares para validaciones y tratamientos.
+    - `models/`: Lógica de conexión con la base de datos.
+    - `services/`: Capa de servicios que interactúa con Prisma y realiza operaciones de negocio.
+    - `routes/`: Definición de las rutas de la API.
+    - `utils/`: Funciones utilitarias, como manipulación de imágenes e interacción con la API de Google Generative AI.
+    - `tests/`: Pruebas automatizadas para validar las funcionalidades.
 
-- `src/`: Contiene el código fuente de la aplicación.
-  - `controllers/`: Lógica de control, donde se procesan las solicitudes.
-  - `db/`: Genera una instancia prisma para la conexión con la base de datos en toda la aplicación.
-  - `exceptions/`: Crea excepciones personalizadas para manejar errores durante la ejecución de la aplicación.
-  - `ìnterfaces/`: Crea interfaces y tipos para manejar parámetros y retornos de funciones.
-  - `middlewares/`: Middlewares para validaciones y tratamientos.
-  - `models/`: Lógica de conexión con la base de datos.
-  - `services/`: Capa de servicios que interactúa con Prisma y realiza operaciones de negocio.
-  - `routes/`: Definición de las rutas de la API.
-  - `utils/`: Funciones utilitarias, como la manipulación de imágenes y la interacción con la API de Google Generative AI.
-  - `tests/`: Pruebas automatizadas para validar las funcionalidades.
+</details>
 
-## Funcionalidades
+<details>
+  <summary><h2>⚙️ Funcionalidades</h2></summary>
 
-- **Listar Mediciones**: Permite listar todas las mediciones de un cliente específico, filtrando por tipo de medición.
-- **Gestión de Imágenes**: Las imágenes de las mediciones se guardan y se recuperan a través de URLs temporales, utilizando Base64.
-- **Validación de Parámetros**: Middleware para validar los parámetros de entrada, garantizando la integridad de las solicitudes.
-- **Análisis de Imágenes con Google Generative AI**: La API analiza imágenes de mediciones y extrae el valor de consumo mostrado.
+  - **Listar Mediciones**: Permite listar todas las mediciones de un cliente específico, filtrando por tipo de medición.
+  - **Gestión de Imágenes**: Las imágenes de mediciones se guardan y recuperan a través de URLs temporales, utilizando Base64.
+  - **Validación de Parámetros**: Middleware para validar parámetros de entrada, garantizando la integridad de las solicitudes.
+  - **Análisis de Imágenes con Google Generative AI**: La API analiza imágenes de mediciones y extrae el valor de consumo mostrado.
 
-## Cómo Ejecutar el Proyecto
+</details>
 
-### Requisitos
+<details>
+  <summary><h2>🚀 Cómo Ejecutar el Proyecto</h2></summary>
 
-- Node.js
-- Docker (opcional para el entorno de desarrollo)
+  ### Requisitos
 
-### Instalación
+  - Node.js
+  - Docker (opcional para el entorno de desarrollo)
 
-1. Clonar el repositorio:
-    ```bash
-    git clone https://github.com/seu-usuario/apiShopper.git
-    cd apiMeasureWaterAndGas
-    ```
+  ### Instalación
 
-2. Instalar las dependencias:
-    ```bash
-    npm install
-    ```
-
-3. Configurar las variables de entorno:
-    - Crear un archivo `.env` con las configuraciones necesarias.
-    - Ejemplo:
-      ```env
-      DATABASE_URL="file:./dev.db"
-      GEMINI_API_KEY="tu_clave_api_google"
-      HOST="http://localhost:3000"
+  1. Clona el repositorio:
+      ```bash
+      git clone https://github.com/SamuelRocha91/apiShopper.git
+      cd apiMeasureWaterAndGas
       ```
 
-4. Ejecutar las migraciones de la base de datos:
-    ```bash
-    npx prisma migrate dev
-    ```
+  2. Instala las dependencias:
+      ```bash
+      npm install
+      ```
 
-5. Iniciar el servidor:
-    ```bash
-    npm run dev
-    ```
+  3. Configura las variables de entorno:
+      - Crea un archivo `.env` con las configuraciones necesarias.
+      - Ejemplo:
+        ```env
+        DATABASE_URL="file:./dev.db"
+        GEMINI_API_KEY="tu_clave_api_google"
+        HOST="http://localhost:3000"
+        ```
 
-### Docker
+  4. Ejecuta las migraciones de la base de datos:
+      ```bash
+      npx prisma migrate dev
+      ```
 
-Puedes ejecutar el proyecto utilizando Docker. Para ello, ejecuta:
+  5. Inicia el servidor:
+      ```bash
+      npm run dev
+      ```
 
-```bash
-docker-compose up --build
-```
+  ### Docker
 
-## Pruebas
+  Puedes ejecutar el proyecto utilizando Docker. Para ello, ejecuta:
 
-Las pruebas se ejecutan con Jest y Mocha. Para ejecutar todas las pruebas:
+  ```bash
+  docker-compose up --build
+  ```
 
-```bash
-npm run test
-```
+</details>
 
-## Contribución
+<details>
+  <summary><h2>🧪 Pruebas</h2></summary>
 
-Siéntete libre de abrir issues o enviar pull requests. ¡Toda contribución es bienvenida!
+  Las pruebas se ejecutan con Jest y Mocha. Para ejecutar todas las pruebas:
 
-## Scripts Disponibles
+  ```bash
+  npm run test
+  ```
 
-- `start`: Inicia la aplicación.
-- `dev`: Inicia la aplicación en modo de desarrollo.
-- `build`: Compila el código TypeScript a JavaScript.
-- `lint`: Ejecuta ESLint para verificar la conformidad del código.
-- `lint:fix`: Ejecuta ESLint y corrige problemas automáticamente.
-- `prisma:generate`: Genera los tipos de Prisma.
-- `prisma:migrate`: Ejecuta migraciones de la base de datos.
-- `prisma:seed`: Población inicial de la base de datos con datos de prueba.
-- `docker`: Instala las dependencias, genera los tipos de Prisma, ejecuta migraciones e inicia el servidor utilizando Nodemon.
-- `test`: Ejecuta todas las pruebas utilizando Mocha y Jest.
+</details>
 
-## Configuración de Imágenes
+<details>
+  <summary><h2>🤝 Contribución</h2></summary>
 
-Funciones utilitarias para guardar y generar URLs para imágenes:
+  Siéntete libre de abrir issues o enviar pull requests. ¡Toda contribución es bienvenida!
 
-- **`saveBase64Image`**: Guarda una imagen Base64 en un archivo en el servidor.
-- **`getImageUrl`**: Genera una URL temporal para acceder a la imagen.
-- **`extractMimeType`**: Extrae el tipo MIME de una imagen Base64.
-- **`extractSize`**: Calcula el tamaño de una imagen Base64.
+</details>
 
-## Análisis de Imágenes con Google Generative AI
+<details>
+  <summary><h2>📜 Scripts Disponibles</h2></summary>
 
-La función **`checkMeasureValue`** utiliza Google Generative AI para analizar imágenes de mediciones y extraer el valor de consumo.
+  - `start`: Inicia la aplicación.
+  - `dev`: Inicia la aplicación en modo de desarrollo.
+  - `build`: Compila el código TypeScript a JavaScript.
+  - `lint`: Ejecuta ESLint para verificar la conformidad del código.
+  - `lint:fix`: Ejecuta ESLint y corrige problemas automáticamente.
+  - `prisma:generate`: Genera los tipos de Prisma.
+  - `prisma:migrate`: Ejecuta migraciones de la base de datos.
+  - `prisma:seed`: Población de la base de datos con datos iniciales.
+  - `docker`: Instala las dependencias, genera los tipos de Prisma, ejecuta migraciones e inicia el servidor utilizando Nodemon.
+  - `test`: Ejecuta todas las pruebas usando Mocha y Jest.
 
-```javascript
-async function checkMeasureValue(mime: string, base64: string): Promise<number> {
-  const result = await model.generateContent([
-    {
-      inlineData: {
-        mimeType: mime,
-        data: base64
-      }
-    },
-    { text: PROMPT }
-  ]);
+</details>
 
-  return Number(result.response.text().match(/\d+/)[0]);
-}
-```
+<details>
+  <summary><h2>🖼️ Configuración de Imagen</h2></summary>
 
-Esta función se usa para asegurar que el valor de la medición sea extraído con precisión a partir de la imagen proporcionada.
+  Funciones utilitarias para guardar y generar URLs para imágenes:
 
-## Otros Proyectos
+  - **`saveBase64Image`**: Guarda una imagen Base64 en un archivo en el servidor.
+  - **`getImageUrl`**: Genera una URL temporal para acceder a la imagen.
+  - **`extractMimeType`**: Extrae el tipo MIME de una imagen Base64.
+  - **`extractSize`**: Calcula el tamaño de una imagen Base64.
 
-- 💎 [Delivery BackEnd](https://github.com/SamuelRocha91/delivery_back/blob/main/README_es.md) 
-- 🛒 [Consumy Application](https://github.com/SamuelRocha91/consumy/blob/main/README_es.md) 
-- 👨‍💼 [Seller Application](https://github.com/SamuelRocha91/seller_application/blob/main/README_es.md) 
-- 💲 [Paymenty API](https://github.com/SamuelRocha91/paymenty) 
+</details>
+
+<details>
+  <summary><h2>🔍 Análisis de Imágenes con Google Generative AI</h2></summary>
+
+  La función **`checkMeasureValue`** utiliza Google Generative AI para analizar imágenes de mediciones y extraer el valor de consumo.
+
+  ```javascript
+  async function checkMeasureValue(mime: string, base64: string): Promise<number> {
+    const result = await model.generateContent([
+      {
+        inlineData: {
+          mimeType: mime,
+          data: base64
+        }
+      },
+      { text: PROMPT }
+    ]);
+
+    return Number(result.response.text().match(/\d+/)[0]);
+  }
+  ```
+
+  Esta función se utiliza para garantizar que el valor de la medición sea extraído con precisión a partir de la imagen proporcionada.
+
+</details>
+
+<details>
+  <summary><h2>🔗 Otros Repositorios:</h2></summary>
+
+  - 💎 [BackEnd de Delivery](https://github.com/SamuelRocha91/delivery-backend/blob/main/README_es.md)
+  - 💳 [API de Pagos](
+
+https://github.com/SamuelRocha91/paymentAPI/blob/main/README_es.md)
+  - 📦 [API de Vendedores](https://github.com/SamuelRocha91/sellerAPI/blob/main/README_es.md)
+  - 🎫 [API de Compras](https://github.com/SamuelRocha91/consumerAPI/blob/main/README_es.md)
+
+</details>
